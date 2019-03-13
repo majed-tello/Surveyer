@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Surveyer.Models;
+using Surveyer.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +16,13 @@ namespace Surveyer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Loggin(string UserName,string Password)
+        public ActionResult Loggin(LogginViewModel loginviewmodel)
         {
+            if (ModelState.IsValid)
+                return RedirectToAction("");
+
             return RedirectToAction("");
+
         }
 
         public ActionResult Loggoff()
@@ -29,8 +35,11 @@ namespace Surveyer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(string UserName, string Password)
+        public ActionResult Register(User user)
         {
+            if (ModelState.IsValid)
+
+            return RedirectToAction("");
             return RedirectToAction("");
         }
     }
