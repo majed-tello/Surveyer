@@ -5,10 +5,14 @@
 }
 
 <h2>Loggin</h2>
-
+@*@foreach (int x in ViewBag.raaed)
+{
+<p>@x</p>
+}*@
 
 @using (Html.BeginForm())
 {
+    //encription the request when up to server
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -37,7 +41,7 @@
         </div>
     </div>
 }
-    <div>
+    <div >
         @Html.ActionLink("Register", "Register")
     </div>
 <div>

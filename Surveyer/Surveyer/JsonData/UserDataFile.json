@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "cdeab03a-80f4-4237-b80b-ce4ffad5df00",
+    "UserName": "tahsen",
+    "BirthDate": "2019-03-19T00:00:00",
+    "Phone": "54543",
+    "Email": "asd@fdsad.com",
+    "Password": "123"
+  },
+  {
+    "Id": "cdeab03a-80f4-4237-b83b-ce4ffad5df00",
+    "UserName": "raeed",
+    "BirthDate": "2019-03-19T00:00:00",
+    "Phone": "54543",
+    "Email": "asd@fdsad.com",
+    "Password": "123"
+  }
+]

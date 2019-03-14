@@ -1,4 +1,5 @@
-﻿using Surveyer.Models;
+﻿using Surveyer.HelperClasses;
+using Surveyer.Models;
 using Surveyer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,26 @@ namespace Surveyer.Controllers
 {
     public class UsersManagementController : Controller
     {
+        private JsonIO jsonIO = new JsonIO();
+
+        public ActionResult Index()
+        {
+            return View(jsonIO.Users.GetData(this));
+        }
         // GET: UsersManagement
         public ActionResult Loggin()
         {
+           // ViewBag.raaed = new List<int> { 1, 2, 3, 4, 5 };
             return View();
         }
         [HttpPost]
         public ActionResult Loggin(LogginViewModel loginviewmodel)
         {
             if (ModelState.IsValid)
+            {
                 return RedirectToAction("");
+            }
+               
 
             return RedirectToAction("");
 
@@ -38,9 +49,11 @@ namespace Surveyer.Controllers
         public ActionResult Register(User user)
         {
             if (ModelState.IsValid)
-
-            return RedirectToAction("");
-            return RedirectToAction("");
+            {
+                jsonIO.Users.AddItem(Server.MapPath("~/JsonData/"), user);
+                return RedirectToAction("Index","Home");
+            }
+            return View(user);
         }
     }
 }
