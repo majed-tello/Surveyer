@@ -11,7 +11,7 @@ namespace Surveyer.HelperClasses
         public JsonDataType<User> Users { get; set; }
         public JsonIO()
         {
-            Users = new JsonDataType<User>();
+            Users = new JsonDataType<User>("UserDataFile.json");
         }
     }
 }

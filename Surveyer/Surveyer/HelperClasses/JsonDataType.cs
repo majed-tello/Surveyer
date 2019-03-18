@@ -11,11 +11,14 @@ namespace Surveyer.HelperClasses
 {
     public class JsonDataType<T>
     {
+        private string filename { get; set; }
+        public JsonDataType(string filename)
+        {
+            this.filename = filename;
+        }
+
         public List<T> GetData(Controller controller)
         {
-            string filename = "UserDataFile.json";
-            //if (typeof(T) is User)
-            //    filename = "";
             var jsonfile = new StreamReader(controller.Server.MapPath("~/JsonData/" + filename));
             var jsondata = jsonfile.ReadToEnd();
             jsonfile.Close();
@@ -24,28 +27,29 @@ namespace Surveyer.HelperClasses
 
         public void SaveData(Controller controller, List<T> Data)
         {
-            string filename = "";
-
-            if (typeof(T) is User)
-                filename = "";
-
             var jsondata = JsonConvert.SerializeObject(Data);
             System.IO.File.WriteAllText(controller.Server.MapPath("~/JsonData/" + filename), string.Empty);
             var jsonfile = new StreamWriter(controller.Server.MapPath("~/JsonData/" + filename));
-            jsonfile.WriteLine(Data);
+            jsonfile.WriteLine(jsondata);
             jsonfile.Close();
         }
 
-        public void AddItem(string path, T Item)
+        public void AddItem(Controller controlle, T Item)
         {
-            string filename = "UserDataFile.json";
-            //if (typeof(T) is User)
-            //    filename = "UserDataFile";
+            var data = GetData(controlle);
+            if (data == null)
+                data = new List<T>();
+            data.Add(Item);
+            SaveData(controlle, data);
+        }
 
-            var jsondata = JsonConvert.SerializeObject(Item);
-            var jsonfile = new StreamWriter(path + filename,true);
-            jsonfile.WriteLine(jsondata);
-            jsonfile.Close();
+        public void RemoveItem(Controller controlle, T Item)
+        {
+            var data = GetData(controlle);
+            if (data == null)
+                throw new Exception("the json file is olredy empty");
+            data.Remove(Item);
+            SaveData(controlle, data);
         }
     }
 }

@@ -24,21 +24,24 @@ namespace Surveyer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Loggin(LogginViewModel loginviewmodel)
+        public ActionResult Loggin(LogginViewModel logginviewmodel)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("");
+                var user = jsonIO.Users.GetData(this).Where(x => x.UserName == logginviewmodel.UserName && x.Password == logginviewmodel.Password).FirstOrDefault();
+                if (user!=null)
+                {
+                    Session["user"] = user;
+                    return RedirectToAction("Index","Home");
+                }
             }
-               
-
-            return RedirectToAction("");
-
+            return View(logginviewmodel);
         }
 
         public ActionResult Loggoff()
         {
-            return View();
+            Session["user"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Register()
@@ -50,7 +53,7 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
-                jsonIO.Users.AddItem(Server.MapPath("~/JsonData/"), user);
+                jsonIO.Users.AddItem(this, user);
                 return RedirectToAction("Index","Home");
             }
             return View(user);
