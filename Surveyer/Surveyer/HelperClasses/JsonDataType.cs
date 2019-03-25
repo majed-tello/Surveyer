@@ -11,6 +11,7 @@ namespace Surveyer.HelperClasses
 {
     public class JsonDataType<T>
     {
+        //test2
         private string filename { get; set; }
         public JsonDataType(string filename)
         {
