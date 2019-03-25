@@ -9,6 +9,7 @@ namespace Surveyer.Models
 {
     public class User
     {
+        //test
         [ScaffoldColumn(false)]
         public string Id { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Surveyer.HelperClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,10 @@ namespace Surveyer.Controllers
 {
     public class HomeController : Controller
     {
+        private JsonIO jsonIO = new JsonIO();
         public ActionResult Index()
         {
+
             return View();
         }
 

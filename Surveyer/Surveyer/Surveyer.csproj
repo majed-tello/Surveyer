@@ -153,6 +153,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HelperClasses\HelperClass.cs" />
+    <Compile Include="HelperClasses\JsonDataType.cs" />
+    <Compile Include="HelperClasses\JsonIO.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\LogginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,15 +164,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="JsonData\UserDataFile.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -198,6 +201,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\UsersManagement\Register.cshtml" />
     <Content Include="Views\UsersManagement\Loggin.cshtml" />
+    <Content Include="Views\UsersManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
