@@ -24,6 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Password)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </th>
         <th></th>
     </tr>
 
@@ -43,6 +46,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageURL)
         </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
