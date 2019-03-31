@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Loggin";
+    @Styles.Render("~/Content/style3.css");
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 }
 
 <h2>Loggin</h2>
@@ -15,8 +17,8 @@
     //encription the request when up to server
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
+    <div class="form-horizontal ">
+       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,13 +43,18 @@
         </div>
     </div>
 }
-    <div >
-        @Html.ActionLink("Register", "Register")
+    <div class="register">
+      <span class="text-register"> Click on the icon to register</span> 
+        <a href="Register.cshtml"><i class="fas fa-user-plus"></i></a>
     </div>
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="back">
+    <a href=""><i class="fas fa-chevron-circle-left"></i></a>
 </div>
-
+<ul class="list-unstyled social-media">
+    <li><img src="~/Content/images/iconfinder_Facebook_381389.png" /></li>
+    <li><img src="~/Content/images/iconfinder_82-messenger_4202109.png"></li>
+    <li><img src="~/Content/images/iconfinder_24-twitter_tweet_4202000.png" /></li>
+</ul>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
