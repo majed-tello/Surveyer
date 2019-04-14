@@ -28,7 +28,7 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = jsonIO.Users.GetData(this).Where(x => x.UserName == logginviewmodel.UserName && x.Password == logginviewmodel.Password).FirstOrDefault();
+                var user = jsonIO.Users.GetData(this).Where(x => x.UserName == logginviewmodel.UserName && x.Password.GetHashCode().ToString() == logginviewmodel.Password).FirstOrDefault();
                 if (user!=null)
                 {
                     Session["user"] = user;
@@ -53,6 +53,7 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Password = user.Password.GetHashCode().ToString();
                 jsonIO.Users.AddItem(this, user);
                 return RedirectToAction("Index","Home");
             }

@@ -148,6 +148,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\UsersManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -155,7 +156,18 @@
     <Compile Include="HelperClasses\HelperClass.cs" />
     <Compile Include="HelperClasses\JsonDataType.cs" />
     <Compile Include="HelperClasses\JsonIO.cs" />
+    <Compile Include="Models\Chice.cs" />
+    <Compile Include="Models\DateItem.cs" />
+    <Compile Include="Models\FileUploadItem.cs" />
+    <Compile Include="Models\MultipleChoiceItem.cs" />
+    <Compile Include="Models\RatingItem.cs" />
+    <Compile Include="Models\ShortAnswerItem.cs" />
+    <Compile Include="Models\SingleChoiceItem.cs" />
+    <Compile Include="Models\Survey.cs" />
+    <Compile Include="Models\SurveyItem.cs" />
+    <Compile Include="Models\TimeItem.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\SelectListViewModel.cs" />
     <Compile Include="Models\ViewModels\LogginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -203,6 +215,8 @@
     <Content Include="Views\UsersManagement\Register.cshtml" />
     <Content Include="Views\UsersManagement\Loggin.cshtml" />
     <Content Include="Views\UsersManagement\Index.cshtml" />
+    <Content Include="Views\Surveys\Create.cshtml" />
+    <Content Include="Views\Surveys\CreateCompleate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
