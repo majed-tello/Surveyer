@@ -4,33 +4,29 @@
     ViewBag.Title = "CreateCompleate";
 }
 
-<h2>@Model.Title</h2>
-<p>@Model.Description</p>
+<h2>@ViewBag.title</h2>
+<p>@ViewBag.description</p>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-horizontal" style="background:@ViewBag.color" id="basediv">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SurveyItems, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SurveyItems, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SurveyItems, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
+
+
     </div>
-</div>
 }
 
 <div>
@@ -40,3 +36,68 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+
+    var x = 0;
+
+    function AddItem() {
+        var div = document.createElement("DIV");
+        div.setAttribute("style", "border:1px black solid");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /></div></div>';
+        document.getElementById("basediv").appendChild(div);
+        x++;
+        
+    }
+
+    function removeItem(button) {
+        button.parentElement.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement.parentElement);
+    }
+
+
+    function removeAnswer(button) {
+
+        button.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement);
+    }
+
+
+    function Addanswer(button) {
+        var answernumber = button.parentElement.getAttribute("name");
+        console.log(answernumber);
+        button.parentElement.setAttribute("name", parseInt(answernumber) + 1);
+        var buttonname = button.getAttribute("name");
+        var div = document.createElement("DIV");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-6"><input type="text" name=' + buttonname + '-a' + answernumber + ' /> <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
+        button.parentElement.appendChild(div);
+    }
+
+    function changeOption(select) {
+        var selectname = select.getAttribute("name");
+        if (select.value == 'None') {
+            console.log('none');
+            select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
+        }
+        else if (select.value == 'Short Answer' || select.value == 'Pargrph' || select.value == 'Rating' || select.value == 'File Upload' || select.value == 'Date' || select.value == 'Time') {
+            console.log('normal');
+            var node1 = document.createElement("DIV");
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6"><input type="text" name= t' + selectname + '  /><input type="checkbox" name= r' + selectname + ' /> Required</div></div>';
+            try {
+                select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
+            }
+            catch{ }
+            select.parentElement.parentElement.appendChild(node1);
+        }
+
+        else if (select.value == 'Single Choice' || select.value == 'Multiple Choice') {
+            console.log('multi');
+            var node1 = document.createElement("DIV");
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input type="text"  name=t' + selectname + ' /><input type="checkbox" name=r' + selectname + '> Required <input type="button" value="+" onclick="Addanswer(this)" class=" btn btn-success" name=b' + selectname + ' /></div></div>';
+            try {
+                select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
+            }
+            catch{ }
+            select.parentElement.parentElement.appendChild(node1);
+        }
+
+    }
+</script>

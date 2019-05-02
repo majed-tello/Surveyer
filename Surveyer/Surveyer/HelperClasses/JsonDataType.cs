@@ -25,7 +25,7 @@ namespace Surveyer.HelperClasses
             return JsonConvert.DeserializeObject<List<T>>(jsondata);
         }
 
-        public void SaveData(Controller controller, List<T> Data)
+        private void SaveData(Controller controller, List<T> Data)
         {
             var jsondata = JsonConvert.SerializeObject(Data);
             System.IO.File.WriteAllText(controller.Server.MapPath("~/JsonData/" + filename), string.Empty);

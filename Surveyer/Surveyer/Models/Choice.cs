@@ -5,8 +5,10 @@ using System.Web;
 
 namespace Surveyer.Models
 {
-    public class MultipleChoiceItem : SurveyItem
+    public class Choice
     {
-        public List<Chice> Chices { get; set; }
+        public string Text { get; set; }
+
+        public bool IsCorect { get; set; }
     }
 }

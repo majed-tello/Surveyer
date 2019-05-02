@@ -48,12 +48,12 @@
     <div class="form-group">
         @Html.LabelFor(model => model.AllowAccess, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("SurveyAllowAccess", null, htmlAttributes: new { @class = "form-control",@id="d1", @onchange = "call()" })
+            @Html.DropDownList("AllowAccess", null, htmlAttributes: new { @class = "form-control",@id="d1",onchange="func1()" })
             @Html.ValidationMessageFor(model => model.AllowAccess, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group" id="u1" style="visibility:hidden">
+    <div class="form-group" id="u1" style="display:none">
         @Html.LabelFor(model => model.AllowAccess, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.ListBox("Users", null, htmlAttributes: new { @class = "form-control", @type = "multiple" })
@@ -80,11 +80,12 @@
 }
 
 <script type="text/javascript">
-function call(){
-    var response = document.getElementById('Select').value;
-    if (response=='Private')
-        document.getElementById('u1').style.visibility = 'visible';
-    else document.getElementById('u1').style.visibility = 'hidden';
+    function func1() {
+        var selectstate = $('#d1').val();  
+        if (selectstate == '1') {
+            $('#u1').show();
+        }
+        else { $('#u1').hide(); }
 
     }
 </script>

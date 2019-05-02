@@ -27,7 +27,7 @@ namespace Surveyer.Controllers
                 new SelectListViewModel { Id = 1, Text = "Quiz" } };
 
 
-            ViewBag.SurveyAllowAccess = new SelectList(surveyallowaccess, "Id", "Text");
+            ViewBag.AllowAccess = new SelectList(surveyallowaccess, "Id", "Text");
             ViewBag.SurveyType = new SelectList(surveytype, "Id", "Text");
             ViewBag.Users = new SelectList(jsonIO.Users.GetData(this), "Id", "UserName");
             return View();
@@ -38,14 +38,16 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (survey.AllowAccess == 1)
+                if (survey.AllowAccess == (int)SurveyAllowAccess.Private)
                 {
+                    
                     var users = form["Users"];
                     var userarr = users.Split(',');
                     survey.UsersAllowedAccess = new List<string>();
                     foreach (var user in userarr)
                         survey.UsersAllowedAccess.Add(user);
                 }
+                survey.UserId = ((User)Session["user"]).Id;
                 Session["CurrentSurvey"] = survey;
                 return RedirectToAction("CreateCompleate", "Surveys");
             }
@@ -54,23 +56,66 @@ namespace Surveyer.Controllers
 
         public ActionResult CreateCompleate()
         {
-            //ViewBag.Title = CurrentSurvey.Title;
-            //ViewBag.Description = CurrentSurvey.Description;
-            //ViewBag.Color = CurrentSurvey.SurveyColor;
             Survey CurrentSurvey = (Survey)Session["CurrentSurvey"];
-
-            return View(CurrentSurvey);
+            ViewBag.title = CurrentSurvey.Title;
+            ViewBag.description = CurrentSurvey.Description;
+            ViewBag.color = CurrentSurvey.SurveyColor.Name;
+            return View();
         }
 
         [HttpPost]
-        public ActionResult CreateCompleate(Survey survey)
+        public ActionResult CreateCompleate(FormCollection form)
         {
-            if (ModelState.IsValid)
+            Survey CurrentSurvey = (Survey)Session["CurrentSurvey"];
+            for (int i = 0; i < 100; i++)
             {
-                jsonIO.Surveys.AddItem(this, survey);
-                return RedirectToAction("Index", "Home");
+                var type = form[i.ToString()];
+                if (type == null)
+                    continue;
+                else
+                {
+                    if (type == "Short Answer" || type == "Pargrph" || type == "Rating" || type == "File Upload" || type == "Date" || type == "Time")
+                    {
+                        var text = form["t" + i].ToString();
+                        var r = (form["r" + i]);
+                        bool required =(r==null)? false:true;
+                        CurrentSurvey.SurveyItems.Add(GetItem(type, text, required, new List<string> { }));
+                    }
+                    else
+                    {
+                        List<string> answers = new List<string>();
+                        for (int j = 0; j < 100; j++)
+                        {
+                            var answer = form["b" + i + "-a" + j];
+                            if (answer != null)
+                                answers.Add(answer);
+                        }
+                        var text = form["t" + i].ToString();
+                        var r = (form["r" + i]);
+                        bool required = (r == null) ? false : true;
+                        CurrentSurvey.SurveyItems.Add(GetItem(type, text, required, answers));
+                    }
+                }
             }
-            return View(survey);
+            jsonIO.Surveys.AddItem(this, CurrentSurvey);
+            Session["CurrentSurvey"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+        private SurveyItem GetItem(string type, string text, bool required, List<string> choices)
+        {
+            switch(type)
+            {
+                case "Short Answer":return new SurveyItem((int)SurveyItemType.ShortAnswer,text, required, choices);
+                case "Pargrph": return new SurveyItem((int)SurveyItemType.Pargrph, text, required, choices);
+                case "Single Choice": return new SurveyItem((int)SurveyItemType.SingleChoice, text, required, choices);
+                case "Multiple Choice": return new SurveyItem((int)SurveyItemType.MultipleChoice, text, required, choices);
+                case "Rating": return new SurveyItem((int)SurveyItemType.Rating, text, required, choices);
+                case "File Upload": return new SurveyItem((int)SurveyItemType.FileUpload, text, required, choices);
+                case "Date": return new SurveyItem((int)SurveyItemType.Date, text, required, choices);
+                case "Time": return new SurveyItem((int)SurveyItemType.Time, text, required, choices);
+            }
+            return new SurveyItem((int)SurveyItemType.ShortAnswer, text, required, choices);
         }
 
     }

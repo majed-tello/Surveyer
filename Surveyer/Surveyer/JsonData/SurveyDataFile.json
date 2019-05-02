@@ -1,0 +1,170 @@
+[
+  {
+    "Id": "752a4f01-ae34-4316-87ce-30dae552a232",
+    "Title": "Microsoft Visual Studio 19 review  Feedback",
+    "Description": "Microsoft Visual Studio 19 review  Feedback\r\n\r\nMicrosoft Visual Studio 19 review  Feedback\r\n\r\nMicrosoft Visual Studio 19 review  Feedback",
+    "PublishDate": "2019-05-02T17:28:09.6708296+03:00",
+    "SurveyItems": [
+      {
+        "Id": "aeac4c22-9003-49e0-a7fc-048a5e0b3f7c",
+        "Type": 0,
+        "Text": "is good ?",
+        "Required": true,
+        "Answers": []
+      },
+      {
+        "Id": "3241ab6d-5af2-4044-9f04-cab4dd69e944",
+        "Type": 1,
+        "Text": "type problems",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "e665c67c-87cd-41b2-8867-6e0cf7209daf",
+        "Type": 4,
+        "Text": "peformance",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "b2dbb2c8-6134-46f0-96d0-a3282c67db78",
+        "Type": 2,
+        "Text": "foveret style",
+        "Required": false,
+        "Answers": [ "dark", "light" ]
+      }
+    ],
+    "AllowAccess": 1,
+    "UsersAllowedAccess": [ "cf299751-580c-423c-8d23-91c83bab89c1", "9cc2363c-f97c-45c9-baf2-a7ae38cbfdf0" ],
+    "SurveyType": 0,
+    "SurveyColor": "Purple",
+    "UserId": null
+  },
+  {
+    "Id": "810aaff5-0449-4699-8be7-e07c85144fe7",
+    "Title": "Huwawie Y5",
+    "Description": "Microsoft Visual Studio 19 review  Feedback",
+    "PublishDate": "2019-05-02T17:31:29.931957+03:00",
+    "SurveyItems": [
+      {
+        "Id": "f0adfb0b-6822-4819-a98d-768c55ba138d",
+        "Type": 5,
+        "Text": "uplade photo to you phone",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "fa08b869-165f-4872-a423-5059d4b20ada",
+        "Type": 3,
+        "Text": "battury power",
+        "Required": true,
+        "Answers": [ "low", "hiegh" ]
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "128, 128, 255",
+    "UserId": null
+  },
+  {
+    "Id": "ce0765c8-00d7-4492-a7ff-924d6efeb363",
+    "Title": "الإسكان",
+    "Description": "dasdfsfsd",
+    "PublishDate": "2019-05-02T17:35:02.7775195+03:00",
+    "SurveyItems": [
+      {
+        "Id": "cd0cef58-fe19-4bfa-9a09-2816cf4d0fc6",
+        "Type": 7,
+        "Text": "دخل وقتك ؟",
+        "Required": true,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "Silver",
+    "UserId": null
+  },
+  {
+    "Id": "73d829d6-889c-4def-8972-58bd7e15d48c",
+    "Title": "new survey",
+    "Description": null,
+    "PublishDate": "2019-05-02T18:33:24.7725367+03:00",
+    "SurveyItems": [
+      {
+        "Id": "57ffa78d-655a-4212-905e-adc46ad09ed1",
+        "Type": 2,
+        "Text": "test",
+        "Required": true,
+        "Answers": [ "1", "2", "3", "4" ]
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "Black",
+    "UserId": null
+  },
+  {
+    "Id": "d42d6c8e-ea4c-4d09-ab16-68c7bb879b64",
+    "Title": "test 2",
+    "Description": null,
+    "PublishDate": "2019-05-02T18:37:00.3144054+03:00",
+    "SurveyItems": [
+      {
+        "Id": "e8edae4a-6ba0-4e7c-b689-e68313b4732e",
+        "Type": 6,
+        "Text": "dsad",
+        "Required": false,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "Black",
+    "UserId": null
+  },
+  {
+    "Id": "f2e61293-9d69-45bc-9c2a-47b9c7c21c8a",
+    "Title": "test3",
+    "Description": null,
+    "PublishDate": "2019-05-02T18:43:01.4097022+03:00",
+    "SurveyItems": [
+      {
+        "Id": "a9e2bfeb-c6a4-4ebe-8e69-bd79b24b9436",
+        "Type": 4,
+        "Text": "rating",
+        "Required": false,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "Black",
+    "UserId": null
+  },
+  {
+    "Id": "a513997d-db43-4eb2-b13a-c2c2aa549cf8",
+    "Title": "الإسكان",
+    "Description": null,
+    "PublishDate": "2019-05-02T18:45:10.6501714+03:00",
+    "SurveyItems": [
+      {
+        "Id": "7df2e864-2333-401e-8724-a4f6c40434a2",
+        "Type": 5,
+        "Text": "jfhdfs",
+        "Required": false,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyColor": "Black",
+    "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06"
+  }
+]
