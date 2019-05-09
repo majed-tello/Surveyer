@@ -4,6 +4,7 @@ using Surveyer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,8 +21,8 @@ namespace Surveyer.Controllers
 
         public ActionResult Create()
         {
-            var surveyallowaccess = new List<SelectListViewModel>{ new SelectListViewModel { Id = 0, Text = "Public" },
-                new SelectListViewModel { Id = 1, Text = "Private" } };
+            var surveyallowaccess = new List<SelectListViewModel>{ new SelectListViewModel { Id = 0, Text = "Aanonymous" },
+                new SelectListViewModel { Id = 1, Text = "Specific Users" } };
 
             var surveytype = new List<SelectListViewModel>{ new SelectListViewModel { Id = 0, Text = "FeedBack" },
                 new SelectListViewModel { Id = 1, Text = "Quiz" } };
@@ -38,7 +39,7 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (survey.AllowAccess == (int)SurveyAllowAccess.Private)
+                if (survey.AllowAccess == (int)SurveyAllowAccess.SpecificUsers)
                 {
                     
                     var users = form["Users"];
@@ -57,7 +58,7 @@ namespace Surveyer.Controllers
         public ActionResult CreateCompleate()
         {
             Survey CurrentSurvey = (Survey)Session["CurrentSurvey"];
-            ViewBag.title = CurrentSurvey.Title;
+            ViewBag.t = CurrentSurvey.Title;
             ViewBag.description = CurrentSurvey.Description;
             ViewBag.color = CurrentSurvey.SurveyColor.Name;
             return View();
@@ -79,16 +80,16 @@ namespace Surveyer.Controllers
                         var text = form["t" + i].ToString();
                         var r = (form["r" + i]);
                         bool required =(r==null)? false:true;
-                        CurrentSurvey.SurveyItems.Add(GetItem(type, text, required, new List<string> { }));
+                        CurrentSurvey.SurveyItems.Add(GetItem(type, text, required, new List<Choice> { }));
                     }
                     else
                     {
-                        List<string> answers = new List<string>();
+                        List<Choice> answers = new List<Choice>();
                         for (int j = 0; j < 100; j++)
                         {
                             var answer = form["b" + i + "-a" + j];
                             if (answer != null)
-                                answers.Add(answer);
+                                answers.Add(new Choice {Text= answer,IsCorect=false });
                         }
                         var text = form["t" + i].ToString();
                         var r = (form["r" + i]);
@@ -102,7 +103,7 @@ namespace Surveyer.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private SurveyItem GetItem(string type, string text, bool required, List<string> choices)
+        private SurveyItem GetItem(string type, string text, bool required, List<Choice> choices)
         {
             switch(type)
             {
@@ -117,6 +118,27 @@ namespace Surveyer.Controllers
             }
             return new SurveyItem((int)SurveyItemType.ShortAnswer, text, required, choices);
         }
+
+
+        public ActionResult FillSurvey(string SurveyId)
+        {
+            Survey survey = jsonIO.Surveys.GetData(this).Where(x => x.Id == SurveyId).FirstOrDefault();
+            User user = (User)Session["user"];
+            if (survey == null)
+                return new HttpNotFoundResult("Survey Not Found .......");
+            if (survey.AllowAccess==(int)SurveyAllowAccess.SpecificUsers)
+            {
+                if (!survey.UsersAllowedAccess.Contains(user.Id))
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You are not allowed to fill this survey .......");
+            }
+            return View(survey);
+        }
+        [HttpPost]
+        public ActionResult FillSurvey(FormCollection form)
+        {
+            return View();
+        }
+
 
     }
 }

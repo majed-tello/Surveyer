@@ -15,10 +15,10 @@ namespace Surveyer.Models
 
     enum SurveyAllowAccess
     {
-        Public = 0,
-        Private =1
+        Aanonymous = 0,
+        SpecificUsers = 1
     }
-    enum SurveyItemType
+   public enum SurveyItemType
     {
         ShortAnswer=0,
         Pargrph=1,
@@ -35,10 +35,10 @@ namespace Surveyer.Models
         [ScaffoldColumn(false)]
         public string Id { get; set; }
 
-        [Display(Name ="Surey Title"),Required]
+        [Display(Name ="Title"),Required]
         public string Title { get; set; }
 
-        [Display(Name ="Survey Description"),DataType(DataType.MultilineText)]
+        [Display(Name ="Description"),DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [ScaffoldColumn(false),Display(Name ="Publish Date")]
@@ -52,10 +52,13 @@ namespace Surveyer.Models
         [Display(Name = "Users Allowed Access")]
         public List<string> UsersAllowedAccess { get; set; }
 
-        [Display(Name = "Survey Type"), Range(0, 1)]
+        [Display(Name = "Type"), Range(0, 1)]
         public byte SurveyType { get; set; } = 0;
 
-        [Display(Name ="Survey Color")]
+        [Display(Name = "Quiz Time"),DataType(DataType.Time)]
+        public DateTime? SurveyTime { get; set; }
+
+        [Display(Name ="Color")]
         public Color SurveyColor { get; set; }
 
         [ScaffoldColumn(false), Display(Name = "Publisher")]

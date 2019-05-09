@@ -1,162 +1,140 @@
 [
   {
-    "Id": "752a4f01-ae34-4316-87ce-30dae552a232",
+    "Id": "dd249dc4-9f21-4906-a7a4-862c2c03d164",
     "Title": "Microsoft Visual Studio 19 review  Feedback",
-    "Description": "Microsoft Visual Studio 19 review  Feedback\r\n\r\nMicrosoft Visual Studio 19 review  Feedback\r\n\r\nMicrosoft Visual Studio 19 review  Feedback",
-    "PublishDate": "2019-05-02T17:28:09.6708296+03:00",
+    "Description": "We started sharing Visual Studio 2019 Previews with the goal to deliver the best possible experience through a more open dialog.\r\n\r\nOver the last few months, we’ve seen lots of thoughtful and passionate discussion throughout the community, on the blog, in Developer Community, and a bunch of social media sites. Through these previews, we were able to share some of the UI changes in this release.\r\n\r\nWe want to say thank you for sharing this feedback. Everyone working on the team has read through all the comments and we’ve done our best to respond to the different themes discussed in the threads.\r\n\r\nHopefully, by now you’ve had a chance to try the Visual Studio 2019 Preview. If not, we encourage you to try out some of the new experiences. There were a few popular themes in the feedback that we wanted to acknowledge and talk a bit about the changes we’ve already made based on your feedback.",
+    "PublishDate": "2019-05-07T20:04:14.4307577+03:00",
     "SurveyItems": [
       {
-        "Id": "aeac4c22-9003-49e0-a7fc-048a5e0b3f7c",
+        "Id": "19d96a95-4de5-4b3b-8620-a097a9b77d56",
         "Type": 0,
-        "Text": "is good ?",
-        "Required": true,
-        "Answers": []
-      },
-      {
-        "Id": "3241ab6d-5af2-4044-9f04-cab4dd69e944",
-        "Type": 1,
-        "Text": "type problems",
+        "Text": "write broblems ?",
         "Required": false,
         "Answers": []
       },
       {
-        "Id": "e665c67c-87cd-41b2-8867-6e0cf7209daf",
-        "Type": 4,
-        "Text": "peformance",
-        "Required": false,
-        "Answers": []
-      },
-      {
-        "Id": "b2dbb2c8-6134-46f0-96d0-a3282c67db78",
+        "Id": "79344803-b7c1-4816-9d59-b1691b8181da",
         "Type": 2,
-        "Text": "foveret style",
-        "Required": false,
-        "Answers": [ "dark", "light" ]
-      }
-    ],
-    "AllowAccess": 1,
-    "UsersAllowedAccess": [ "cf299751-580c-423c-8d23-91c83bab89c1", "9cc2363c-f97c-45c9-baf2-a7ae38cbfdf0" ],
-    "SurveyType": 0,
-    "SurveyColor": "Purple",
-    "UserId": null
-  },
-  {
-    "Id": "810aaff5-0449-4699-8be7-e07c85144fe7",
-    "Title": "Huwawie Y5",
-    "Description": "Microsoft Visual Studio 19 review  Feedback",
-    "PublishDate": "2019-05-02T17:31:29.931957+03:00",
-    "SurveyItems": [
-      {
-        "Id": "f0adfb0b-6822-4819-a98d-768c55ba138d",
-        "Type": 5,
-        "Text": "uplade photo to you phone",
-        "Required": false,
-        "Answers": []
+        "Text": "performance",
+        "Required": true,
+        "Answers": [
+          {
+            "Text": "good",
+            "IsCorect": false
+          },
+          {
+            "Text": "not bad",
+            "IsCorect": false
+          }
+        ]
       },
       {
-        "Id": "fa08b869-165f-4872-a423-5059d4b20ada",
-        "Type": 3,
-        "Text": "battury power",
-        "Required": true,
-        "Answers": [ "low", "hiegh" ]
-      }
-    ],
-    "AllowAccess": 0,
-    "UsersAllowedAccess": null,
-    "SurveyType": 0,
-    "SurveyColor": "128, 128, 255",
-    "UserId": null
-  },
-  {
-    "Id": "ce0765c8-00d7-4492-a7ff-924d6efeb363",
-    "Title": "الإسكان",
-    "Description": "dasdfsfsd",
-    "PublishDate": "2019-05-02T17:35:02.7775195+03:00",
-    "SurveyItems": [
-      {
-        "Id": "cd0cef58-fe19-4bfa-9a09-2816cf4d0fc6",
-        "Type": 7,
-        "Text": "دخل وقتك ؟",
-        "Required": true,
-        "Answers": []
-      }
-    ],
-    "AllowAccess": 0,
-    "UsersAllowedAccess": null,
-    "SurveyType": 0,
-    "SurveyColor": "Silver",
-    "UserId": null
-  },
-  {
-    "Id": "73d829d6-889c-4def-8972-58bd7e15d48c",
-    "Title": "new survey",
-    "Description": null,
-    "PublishDate": "2019-05-02T18:33:24.7725367+03:00",
-    "SurveyItems": [
-      {
-        "Id": "57ffa78d-655a-4212-905e-adc46ad09ed1",
-        "Type": 2,
-        "Text": "test",
-        "Required": true,
-        "Answers": [ "1", "2", "3", "4" ]
-      }
-    ],
-    "AllowAccess": 0,
-    "UsersAllowedAccess": null,
-    "SurveyType": 0,
-    "SurveyColor": "Black",
-    "UserId": null
-  },
-  {
-    "Id": "d42d6c8e-ea4c-4d09-ab16-68c7bb879b64",
-    "Title": "test 2",
-    "Description": null,
-    "PublishDate": "2019-05-02T18:37:00.3144054+03:00",
-    "SurveyItems": [
-      {
-        "Id": "e8edae4a-6ba0-4e7c-b689-e68313b4732e",
+        "Id": "46219603-4c42-4502-8f09-3195936c1e3d",
         "Type": 6,
-        "Text": "dsad",
+        "Text": "when you install ?",
         "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "dc818394-8d1f-42e5-8e03-e54765a218be",
+        "Type": 4,
+        "Text": "style",
+        "Required": true,
         "Answers": []
       }
     ],
     "AllowAccess": 0,
     "UsersAllowedAccess": null,
     "SurveyType": 0,
-    "SurveyColor": "Black",
-    "UserId": null
+    "SurveyTime": null,
+    "SurveyColor": "128, 0, 255",
+    "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06"
   },
   {
-    "Id": "f2e61293-9d69-45bc-9c2a-47b9c7c21c8a",
-    "Title": "test3",
-    "Description": null,
-    "PublishDate": "2019-05-02T18:43:01.4097022+03:00",
+    "Id": "322b138a-89af-49e0-b6b1-ecd1dbd64c9d",
+    "Title": "majed survey",
+    "Description": "test survey",
+    "PublishDate": "2019-05-08T12:49:16.2928089+03:00",
     "SurveyItems": [
       {
-        "Id": "a9e2bfeb-c6a4-4ebe-8e69-bd79b24b9436",
+        "Id": "607908d7-80a1-45b1-ad3d-56e3d5428f8a",
+        "Type": 0,
+        "Text": "short",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "16d3f089-086d-4c3c-b7fb-70ed14ec06de",
+        "Type": 1,
+        "Text": "pargrph",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "38c7c4f3-143a-4554-9968-63a925855f23",
+        "Type": 2,
+        "Text": "single choce",
+        "Required": false,
+        "Answers": [
+          {
+            "Text": "c1",
+            "IsCorect": false
+          },
+          {
+            "Text": "c2",
+            "IsCorect": false
+          },
+          {
+            "Text": "c3",
+            "IsCorect": false
+          }
+        ]
+      },
+      {
+        "Id": "3e606c03-6d7f-4c16-880a-fab4dc84c249",
+        "Type": 3,
+        "Text": "multi choice",
+        "Required": false,
+        "Answers": [
+          {
+            "Text": "m1",
+            "IsCorect": false
+          },
+          {
+            "Text": "m2",
+            "IsCorect": false
+          },
+          {
+            "Text": "m3",
+            "IsCorect": false
+          }
+        ]
+      },
+      {
+        "Id": "f6f4f96d-90b7-47fe-b735-bbb2da69994a",
         "Type": 4,
         "Text": "rating",
         "Required": false,
         "Answers": []
-      }
-    ],
-    "AllowAccess": 0,
-    "UsersAllowedAccess": null,
-    "SurveyType": 0,
-    "SurveyColor": "Black",
-    "UserId": null
-  },
-  {
-    "Id": "a513997d-db43-4eb2-b13a-c2c2aa549cf8",
-    "Title": "الإسكان",
-    "Description": null,
-    "PublishDate": "2019-05-02T18:45:10.6501714+03:00",
-    "SurveyItems": [
+      },
       {
-        "Id": "7df2e864-2333-401e-8724-a4f6c40434a2",
+        "Id": "6fd09ffb-2e4d-450d-9659-a691cfca0733",
         "Type": 5,
-        "Text": "jfhdfs",
+        "Text": "file upload",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "9ac0c3cd-fef4-462d-aae5-2c60763632d7",
+        "Type": 6,
+        "Text": "date",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "55476daa-0d04-4df1-99da-22f0b55aff25",
+        "Type": 7,
+        "Text": "time",
         "Required": false,
         "Answers": []
       }
@@ -164,7 +142,133 @@
     "AllowAccess": 0,
     "UsersAllowedAccess": null,
     "SurveyType": 0,
-    "SurveyColor": "Black",
+    "SurveyTime": null,
+    "SurveyColor": "Silver",
+    "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06"
+  },
+  
+  {
+    "Id": "0bc67667-8e48-4eef-b34d-7f38eeb64f03",
+    "Title": "test survey",
+    "Description": "test",
+    "PublishDate": "2019-05-09T10:25:06.3487911+03:00",
+    "SurveyItems": [
+      {
+        "Id": "7545b529-de0f-4226-8cad-a5f452971990",
+        "Type": 0,
+        "Text": "short",
+        "Required": true,
+        "Answers": []
+      },
+      {
+        "Id": "cd2406a3-447d-452a-9699-f26ac70ec97a",
+        "Type": 3,
+        "Text": "multi",
+        "Required": false,
+        "Answers": [
+          {
+            "Text": "m1",
+            "IsCorect": false
+          },
+          {
+            "Text": "m2",
+            "IsCorect": false
+          },
+          {
+            "Text": "m3",
+            "IsCorect": false
+          }
+        ]
+      },
+      {
+        "Id": "4e117e90-b292-49de-9ac9-1065f8f6d9a6",
+        "Type": 4,
+        "Text": "rating",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "7ae62894-bd38-4b36-b456-99c3a19f659e",
+        "Type": 5,
+        "Text": "file",
+        "Required": false,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyTime": null,
+    "SurveyColor": "Silver",
+    "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06"
+  },
+  {
+    "Id": "80a6a26b-a31e-429d-a6bf-48f536e40c23",
+    "Title": "ygyg",
+    "Description": "GSDTGT",
+    "PublishDate": "2019-05-09T10:40:30.8793907+03:00",
+    "SurveyItems": [
+      {
+        "Id": "182ba8f0-cbee-44b3-9a07-5c91e4aee913",
+        "Type": 0,
+        "Text": "ffthuju",
+        "Required": true,
+        "Answers": []
+      },
+      {
+        "Id": "67d82e3b-003e-4f46-8148-354cc4912b81",
+        "Type": 1,
+        "Text": "",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "2e992fd1-79d6-4cdc-a6c9-2998d62996c9",
+        "Type": 2,
+        "Text": "gvjnmjg",
+        "Required": true,
+        "Answers": [
+          {
+            "Text": "tff",
+            "IsCorect": false
+          },
+          {
+            "Text": "hbh",
+            "IsCorect": false
+          },
+          {
+            "Text": "ggv",
+            "IsCorect": false
+          }
+        ]
+      },
+      {
+        "Id": "06764769-4c88-43f6-bd9f-3bf213762487",
+        "Type": 4,
+        "Text": "ftyhju",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "0f5c342f-eb11-44f6-899a-4ad11e37d4c7",
+        "Type": 5,
+        "Text": "file",
+        "Required": false,
+        "Answers": []
+      },
+      {
+        "Id": "bc88b4c3-da35-40de-871d-d8ef6d6b1c3b",
+        "Type": 6,
+        "Text": "date",
+        "Required": false,
+        "Answers": []
+      }
+    ],
+    "AllowAccess": 0,
+    "UsersAllowedAccess": null,
+    "SurveyType": 0,
+    "SurveyTime": null,
+    "SurveyColor": "Silver",
     "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06"
   }
 ]

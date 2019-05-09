@@ -1,0 +1,132 @@
+﻿@model Surveyer.Models.Survey
+@using Surveyer.Models;
+@{
+    ViewBag.Title = "FillSurvey";
+}
+
+<h2>@Model.Title</h2>
+<p>@Model.Description</p>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+
+    @foreach (var item in Model.SurveyItems)
+    {
+        if (item.Type == (int)SurveyItemType.ShortAnswer)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.Pargrph)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextArea(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id } })
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.SingleChoice)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @foreach (var answer in item.Answers)
+                    {
+                        @Html.RadioButton(answer.Text, "",false)
+                        <text> @answer.Text </text>
+                    }
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.MultipleChoice)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @foreach (var answer in item.Answers)
+                    {
+                        @Html.CheckBox(answer.Text, false)
+                        <text> @answer.Text </text>
+                    }
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.Rating)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        @Html.RadioButton(i.ToString(), false)
+                        <text> @i.ToString() </text>
+                    }
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.FileUpload)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "file" } })
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.Date)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "date" } })
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.Time)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "time" } })
+                </div>
+            </div>
+        }
+
+
+    }
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Fill" class="btn btn-success" />
+        </div>
+    </div>
+
+
+</div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

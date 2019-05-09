@@ -18,9 +18,9 @@ namespace Surveyer.Models
 
         public bool Required { get; set; }
 
-        public List<string> Answers { get; set; }
+        public List<Choice> Answers { get; set; }
 
-        public SurveyItem(byte type,string text, bool required, List<string> Answers)
+        public SurveyItem(byte type,string text, bool required, List<Choice> Answers)
         {
             this.Id = Guid.NewGuid().ToString();
             this.Type = type;
