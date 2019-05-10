@@ -44,7 +44,7 @@
     function AddItem() {
         var div = document.createElement("DIV");
         div.setAttribute("style", "border:1px black solid");
-        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /></div></div>';
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option >Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
         document.getElementById("basediv").appendChild(div);
         x++;
         
@@ -99,5 +99,20 @@
             select.parentElement.parentElement.appendChild(node1);
         }
 
+    }
+
+
+
+    //add item after current item
+      
+
+    function AddItemOrdering(addItemOrdering) {
+        var div = document.createElement("DIV");
+        div.setAttribute("style", "border:1px black solid");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /> <input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
+        addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div,addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
+        
+        x++;
+        
     }
 </script>
