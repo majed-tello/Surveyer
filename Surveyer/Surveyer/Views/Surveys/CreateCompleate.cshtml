@@ -14,13 +14,15 @@
 
     <div class="form-horizontal" style="background:@ViewBag.color" id="basediv">
         <hr />
+
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input id="save" type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
 
@@ -30,7 +32,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List","Index")
 </div>
 
 @section Scripts {
@@ -38,6 +40,51 @@
 }
 
 <script type="text/javascript">
+
+    
+    //////////////////////////////////////////////***********  Edit By Raeed  *********/////////////////////////////////////
+    /*
+    //get button
+    var save = document.getElementById("save");
+    //get basdiv
+    var main = document.getElementById("basediv");
+    
+    var count = 0;
+
+    ///////////// Validation [ Add Item And Fill Item ]
+    save.onclick = function(){
+
+        //validation add item
+        if(main.childElementCount == 2){
+                alert("Add Item *_*");
+        }
+
+
+        //validation fill item
+        else if(main.childElementCount != 2){
+                    for(var i = 2 ; i < main.childElementCount  ; i++)
+                    {
+                        if(main.children[i].children[0].children[2].children[0].children[1].children[0].value === "")
+                        {
+
+                            count++;
+                            console.log(count);
+                        }
+                    }
+                    if(count>0 )
+                    {
+                        alert("Fill Item");
+                        count=0;
+                    }
+        
+            }
+            
+    }
+    */
+    ///////////////////////////////////////////*********** End Edit  *********//////////////////////////////////////////////////
+
+
+
 
     var x = 0;
 
@@ -67,7 +114,7 @@
         button.parentElement.setAttribute("name", parseInt(answernumber) + 1);
         var buttonname = button.getAttribute("name");
         var div = document.createElement("DIV");
-        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-6"><input type="text" name=' + buttonname + '-a' + answernumber + ' /> <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-6"><input type="text" name=' + buttonname + '-a' + answernumber + ' required/> <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
         button.parentElement.appendChild(div);
     }
 
@@ -80,7 +127,7 @@
         else if (select.value == 'Short Answer' || select.value == 'Pargrph' || select.value == 'Rating' || select.value == 'File Upload' || select.value == 'Date' || select.value == 'Time') {
             console.log('normal');
             var node1 = document.createElement("DIV");
-            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6"><input type="text" name= t' + selectname + '  /><input type="checkbox" name= r' + selectname + ' /> Required</div></div>';
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6"><input   type="text" name= t' + selectname + '  required/><input type="checkbox" name= r' + selectname + ' /> Required</div></div>';
             try {
                 select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
             }
@@ -91,7 +138,7 @@
         else if (select.value == 'Single Choice' || select.value == 'Multiple Choice') {
             console.log('multi');
             var node1 = document.createElement("DIV");
-            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input type="text"  name=t' + selectname + ' /><input type="checkbox" name=r' + selectname + '> Required <input type="button" value="+" onclick="Addanswer(this)" class=" btn btn-success" name=b' + selectname + ' /></div></div>';
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input  type="text"  name=t' + selectname + ' required/><input type="checkbox" name=r' + selectname + '> Required <input type="button" value="+" onclick="Addanswer(this)" class=" btn btn-success" name=b' + selectname + ' /></div></div>';
             try {
                 select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
             }
@@ -102,10 +149,9 @@
     }
 
 
+    ////////////////////////////////////***********  Edit By Raeed  *********/////////////////////////////////
 
     //add item after current item
-      
-
     function AddItemOrdering(addItemOrdering) {
         var div = document.createElement("DIV");
         div.setAttribute("style", "border:1px black solid");
@@ -113,6 +159,6 @@
         addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div,addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
         
         x++;
-        
     }
+    /////////////////////////////////////*********** End Edit  *********/////////////////////////////////
 </script>
