@@ -22,7 +22,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
-                <input id="save" type="submit" value="Save" class="btn btn-success" />
+                <input id="save" type="button" value="Save" class="btn btn-success" />
             </div>
         </div>
 
@@ -53,52 +53,100 @@
 
     var countFillItem = 0;
     var countSelectOption = 0;
+    var countAnswer = 0;
+    var count = 0;
 
-    ///////////// Validation [ Add Item And Fill Item And Select Option ]
+
+    
+
+    ///////////// Validation [ Add Item And Fill Item And Select Option ] and Submit 
     save.onclick = function(){
 
         //validation add item
         if(main.childElementCount == 2){
+
+           
+            save.setAttribute("type","button");
             alert("Add Item *_*");
+
         }
 
-            /*
-            //validation fill item
-            else if(main.childElementCount != 2){
-                        for(var i = 2 ; i < main.childElementCount  ; i++)
+        /*
+        //validation fill item
+        else if(main.childElementCount != 2){
+                    for(var i = 2 ; i < main.childElementCount  ; i++)
+                    {
+                        if(main.children[i].children[0].children[2].children[0].children[1].children[0].value === "")
                         {
-                            if(main.children[i].children[0].children[2].children[0].children[1].children[0].value === "")
-                            {
 
-                                countFillItem ++;
-                                console.log(count);
-                            }
+                            countFillItem ++;
+                            console.log(count);
                         }
-                        if(count>0 )
-                        {
-                            alert("Fill Item");
-                            countFillItem =0;
-                        }
+                    }
+                    if(count>0 )
+                    {
+                        alert("Fill Item");
+                        countFillItem =0;
+                    }
 
-                }
-              */
-        else{
+            }
+          */
+        //valid Select Option
+        if(main.childElementCount != 2){
+            save.setAttribute("type","button");
+
+          
             //validation Select Option
             for(var i = 2 ; i < main.childElementCount  ; i++)
             {
                 if(main.children[i].children[0].children[1].children[0].value == 'None')
                 {
                     countSelectOption++;
+                    count++;
+                }
+                if(main.children[i].children[0].children[1].children[0].value == 'Single Choice' || main.children[i].children[0].children[1].children[0].value =='Multiple Choice' )
+                {
+                    if(main.children[i].children[0].children[2].children[0].children[1].childElementCount == 3){
+                       
+                        countAnswer++;
+                        count++;
+                    }
+
                 }
 
 
             }
-            if(countSelectOption>0 )
+            if(countSelectOption>0 && countAnswer==0)
             {
-                alert("Pleas Select an Option *_*");
+                alert("Pleas Select an Option  *_* ");
                 countSelectOption=0;
             }
+            else if(countSelectOption==0 && countAnswer>0)
+            {
+                alert("Pleas Add Answer  *_* ");
+               
+                countAnswer=0;
+            }
+           else if(countSelectOption>0 && countAnswer>0)
+            {
+               alert("Pleas Select an Option And Add Answer  *_* ");
+                countSelectOption=0;
+                countAnswer=0;
+                
+            }
+
         }
+
+        //submit form
+        if(main.childElementCount != 2 && count ==0)
+        {
+           
+            save.setAttribute("type","submit");
+           
+           
+        }
+        count=0;
+        
 
     }
 
@@ -115,6 +163,7 @@
         div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option >Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
         document.getElementById("basediv").appendChild(div);
         x++;
+
 
     }
 
