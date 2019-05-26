@@ -6,8 +6,9 @@
     <title>@ViewBag.Title - Surveyer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr");
-    
-    </head>
+  
+
+</head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -22,19 +23,38 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("My Surveys", "MySurveys", "Surveys")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
+
+                    @if (((Surveyer.Models.User)Session["user"]) != null)
+                    {
+                        <li style="padding-left:500px">
+                            @Html.ActionLink("Hello " + ((Surveyer.Models.User)Session["user"]).UserName, "Index", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Logout", "Logout", "UsersManagement")
+                        </li>
+                    }
+                    else
+                    {
+                        <li style="padding-left:500px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
+                    }
                 </ul>
-            </div>
+                </div>
         </div>
     </div>
-    
+
     <div class="container body-content">
         @RenderBody()
     </div>
-        
-    @Scripts.Render("~/bundles/jquery")
+
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+
 </body>
 </html>

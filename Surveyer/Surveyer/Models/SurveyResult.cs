@@ -21,5 +21,12 @@ namespace Surveyer.Models
         public DateTime PublishDate { get; set; }
 
         public List<SurveyItemResult> surveyItemResults { get; set; }
+
+        public SurveyResult()
+        {
+            this.Id = Guid.NewGuid().ToString();
+            this.PublishDate = DateTime.Now;
+            this.surveyItemResults = new List<SurveyItemResult>();
+        }
     }
 }

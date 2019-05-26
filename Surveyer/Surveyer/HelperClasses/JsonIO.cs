@@ -12,10 +12,13 @@ namespace Surveyer.HelperClasses
 
         public JsonDataType<Survey> Surveys { get; set; }
 
+        public JsonDataType<SurveyResult> SurveyResults { get; set; }
+
         public JsonIO()
         {
             Users = new JsonDataType<User>("UserDataFile.json");
             Surveys = new JsonDataType<Survey>("SurveyDataFile.json");
+            SurveyResults = new JsonDataType<SurveyResult>("SurveyResultDataFile.json");
         }
     }
 }

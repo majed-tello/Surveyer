@@ -15,5 +15,6 @@ namespace Surveyer.Models
         public byte Type { get; set; }
 
         public object Value { get; set; }
+
     }
 }

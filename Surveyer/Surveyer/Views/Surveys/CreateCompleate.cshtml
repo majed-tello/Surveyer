@@ -12,23 +12,22 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal" style="background:@ViewBag.color" id="basediv">
-        <hr />
+<div class="form-horizontal" style="background:@ViewBag.color" id="basediv">
+    <hr />
 
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
-                <input id="save" type="submit" value="Save" class="btn btn-success" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
+            <input id="save" type="submit" value="Save" class="btn btn-success" />
         </div>
-
-
-
     </div>
+
+
+</div>
 }
 
 <div>
@@ -161,4 +160,7 @@
         x++;
     }
     /////////////////////////////////////*********** End Edit  *********/////////////////////////////////
+  
 </script>
+
+

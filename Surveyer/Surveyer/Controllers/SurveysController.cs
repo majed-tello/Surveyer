@@ -123,6 +123,7 @@ namespace Surveyer.Controllers
         public ActionResult FillSurvey(string SurveyId)
         {
             Survey survey = jsonIO.Surveys.GetData(this).Where(x => x.Id == SurveyId).FirstOrDefault();
+            Session["fillsurvey"] = survey;
             User user = (User)Session["user"];
             if (survey == null)
                 return new HttpNotFoundResult("Survey Not Found .......");
@@ -136,7 +137,31 @@ namespace Surveyer.Controllers
         [HttpPost]
         public ActionResult FillSurvey(FormCollection form)
         {
-            return View();
+            Survey survey = (Survey)Session["fillsurvey"];
+            SurveyResult surveyresult = new SurveyResult();
+            surveyresult.SurveyId = survey.Id;
+            var user = ((User)Session["user"]);
+
+            surveyresult.UserId = (user == null) ? "" : user.Id;
+            foreach (var item in survey.SurveyItems)
+            {
+                surveyresult.surveyItemResults.Add(new SurveyItemResult { Id = item.Id, Type = item.Type, Value = form[item.Id] });
+            }
+            jsonIO.SurveyResults.AddItem(this,surveyresult);
+            Session["fillsurvey"] = null;
+            return RedirectToAction("Index","Home");
+        }
+
+
+        public ActionResult MySurveys()
+        {
+            var surveys = jsonIO.Surveys.GetData(this).Where(x => x.UserId == ((User)Session["user"]).Id).ToList();
+            return View(surveys);
+        }
+
+        public ActionResult Detailes(string Id)
+        {
+            return View(jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).FirstOrDefault());
         }
 
 

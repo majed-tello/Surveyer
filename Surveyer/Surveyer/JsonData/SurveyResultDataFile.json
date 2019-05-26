@@ -1,0 +1,38 @@
+[
+  {
+    "Id": "65f395ad-0992-4199-9065-883d419bf9e8",
+    "SurveyId": "4736a53f-1b92-4c83-bf9d-4bcd09690deb",
+    "UserId": "e2b264c0-1136-48c8-864b-3594f0714f06",
+    "PublishDate": "2019-05-26T17:22:26.1734648+03:00",
+    "surveyItemResults": [
+      {
+        "Id": "94e5e9af-7961-4ea1-a94b-2e67a21cc784",
+        "Type": 0,
+        "Value": "dasd"
+      },
+      {
+        "Id": "b69a26ed-01fb-437e-8f98-f8e995aeb16a",
+        "Type": 3,
+        "Value": "12,22"
+      }
+    ]
+  },
+  {
+    "Id": "dd0bd0cb-7a73-4fed-b6b2-915468b9b376",
+    "SurveyId": "4736a53f-1b92-4c83-bf9d-4bcd09690deb",
+    "UserId": "",
+    "PublishDate": "2019-05-26T18:43:10.9101415+03:00",
+    "surveyItemResults": [
+      {
+        "Id": "94e5e9af-7961-4ea1-a94b-2e67a21cc784",
+        "Type": 0,
+        "Value": "dasd"
+      },
+      {
+        "Id": "b69a26ed-01fb-437e-8f98-f8e995aeb16a",
+        "Type": 3,
+        "Value": "12,16"
+      }
+    ]
+  }
+]

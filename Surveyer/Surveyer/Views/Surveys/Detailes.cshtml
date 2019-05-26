@@ -1,0 +1,56 @@
+﻿@model Surveyer.Models.Survey
+
+@{
+    ViewBag.Title = "Detailes";
+}
+
+<h2>Detailes</h2>
+
+<div>
+    <h4>Survey</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowAccess)
+        </dt>
+
+        <dd>
+            @if (Model.AllowAccess == 0) {
+                @Html.Label("Aanonymous")}
+            else {@Html.Label("Specific Users")}
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyTime)
+        </dd>
+
+    </dl>
+</div>

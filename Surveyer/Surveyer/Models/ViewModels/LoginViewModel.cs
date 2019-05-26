@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Surveyer.Models.ViewModels
 {
-    public class LogginViewModel
+    public class LoginViewModel
     {
         [Required]
         public string UserName { get; set; }

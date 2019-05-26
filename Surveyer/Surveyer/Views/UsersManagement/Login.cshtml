@@ -1,24 +1,18 @@
-﻿@model Surveyer.Models.ViewModels.LogginViewModel
+﻿@model Surveyer.Models.ViewModels.LoginViewModel
 
 @{
-    ViewBag.Title = "Loggin";
-    @Styles.Render("~/Content/style3.css");
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    ViewBag.Title = "Login";
 }
 
-<h2>Loggin</h2>
-@*@foreach (int x in ViewBag.raaed)
-{
-<p>@x</p>
-}*@
+<h2>Login</h2>
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm()) 
 {
-    //encription the request when up to server
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal ">
-       
+    
+    <div class="form-horizontal">
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -38,23 +32,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Loggin" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-    <div class="register">
-      <span class="text-register"> Click on the icon to register</span> 
-        <a href="Register.cshtml"><i class="fas fa-user-plus"></i></a>
-    </div>
-<div class="back">
-    <a href=""><i class="fas fa-chevron-circle-left"></i></a>
+
+<div>
+    @Html.ActionLink("Register", "Register", "UsersManagement")
 </div>
-<ul class="list-unstyled social-media">
-    <li><img src="~/Content/images/iconfinder_Facebook_381389.png" /></li>
-    <li><img src="~/Content/images/iconfinder_82-messenger_4202109.png"></li>
-    <li><img src="~/Content/images/iconfinder_24-twitter_tweet_4202000.png" /></li>
-</ul>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

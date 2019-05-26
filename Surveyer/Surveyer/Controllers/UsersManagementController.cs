@@ -18,27 +18,26 @@ namespace Surveyer.Controllers
             return View(jsonIO.Users.GetData(this));
         }
         // GET: UsersManagement
-        public ActionResult Loggin()
+        public ActionResult Login()
         {
-           // ViewBag.raaed = new List<int> { 1, 2, 3, 4, 5 };
             return View();
         }
         [HttpPost]
-        public ActionResult Loggin(LogginViewModel logginviewmodel)
+        public ActionResult Login(LoginViewModel loginviewmodel)
         {
             if (ModelState.IsValid)
             {
-                var user = jsonIO.Users.GetData(this).Where(x => x.UserName == logginviewmodel.UserName && x.Password == logginviewmodel.Password.GetHashCode().ToString()).FirstOrDefault();
+                var user = jsonIO.Users.GetData(this).Where(x => x.UserName == loginviewmodel.UserName && x.Password == loginviewmodel.Password.GetHashCode().ToString()).FirstOrDefault();
                 if (user!=null)
                 {
                     Session["user"] = user;
                     return RedirectToAction("Index","Home");
                 }
             }
-            return View(logginviewmodel);
+            return View(loginviewmodel);
         }
 
-        public ActionResult Loggoff()
+        public ActionResult Logout()
         {
             Session["user"] = null;
             return RedirectToAction("Index", "Home");
