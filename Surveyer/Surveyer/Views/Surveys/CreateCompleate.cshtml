@@ -32,7 +32,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List","Index")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
@@ -41,46 +41,67 @@
 
 <script type="text/javascript">
 
-    
+
     //////////////////////////////////////////////***********  Edit By Raeed  *********/////////////////////////////////////
-    /*
+
     //get button
     var save = document.getElementById("save");
     //get basdiv
     var main = document.getElementById("basediv");
-    
-    var count = 0;
 
-    ///////////// Validation [ Add Item And Fill Item ]
+
+
+    var countFillItem = 0;
+    var countSelectOption = 0;
+
+    ///////////// Validation [ Add Item And Fill Item And Select Option ]
     save.onclick = function(){
 
         //validation add item
         if(main.childElementCount == 2){
-                alert("Add Item *_*");
+            alert("Add Item *_*");
         }
 
-
-        //validation fill item
-        else if(main.childElementCount != 2){
-                    for(var i = 2 ; i < main.childElementCount  ; i++)
-                    {
-                        if(main.children[i].children[0].children[2].children[0].children[1].children[0].value === "")
+            /*
+            //validation fill item
+            else if(main.childElementCount != 2){
+                        for(var i = 2 ; i < main.childElementCount  ; i++)
                         {
+                            if(main.children[i].children[0].children[2].children[0].children[1].children[0].value === "")
+                            {
 
-                            count++;
-                            console.log(count);
+                                countFillItem ++;
+                                console.log(count);
+                            }
                         }
-                    }
-                    if(count>0 )
-                    {
-                        alert("Fill Item");
-                        count=0;
-                    }
-        
+                        if(count>0 )
+                        {
+                            alert("Fill Item");
+                            countFillItem =0;
+                        }
+
+                }
+              */
+        else{
+            //validation Select Option
+            for(var i = 2 ; i < main.childElementCount  ; i++)
+            {
+                if(main.children[i].children[0].children[1].children[0].value == 'None')
+                {
+                    countSelectOption++;
+                }
+
+
             }
-            
+            if(countSelectOption>0 )
+            {
+                alert("Pleas Select an Option *_*");
+                countSelectOption=0;
+            }
+        }
+
     }
-    */
+
     ///////////////////////////////////////////*********** End Edit  *********//////////////////////////////////////////////////
 
 
@@ -94,7 +115,7 @@
         div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option >Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
         document.getElementById("basediv").appendChild(div);
         x++;
-        
+
     }
 
     function removeItem(button) {
@@ -157,7 +178,7 @@
         div.setAttribute("style", "border:1px black solid");
         div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /> <input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
         addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div,addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
-        
+
         x++;
     }
     /////////////////////////////////////*********** End Edit  *********/////////////////////////////////
