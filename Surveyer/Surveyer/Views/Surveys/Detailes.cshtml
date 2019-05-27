@@ -1,5 +1,5 @@
 ﻿@model Surveyer.Models.Survey
-
+@using Surveyer.Models;
 @{
     ViewBag.Title = "Detailes";
 }
@@ -7,7 +7,6 @@
 <h2>Detailes</h2>
 
 <div>
-    <h4>Survey</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -27,13 +26,23 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublishDate)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.AllowAccess)
         </dt>
 
         <dd>
-            @if (Model.AllowAccess == 0) {
-                @Html.Label("Aanonymous")}
-            else {@Html.Label("Specific Users")}
+            @if (Model.AllowAccess == 0)
+            {
+                <p>Aanonymous</p>}
+            else
+            { <p>Specific Users</p>}
         </dd>
 
         <dt>
@@ -41,16 +50,108 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SurveyType)
+            @if (Model.SurveyType == 0)
+            {
+                <p>FeedBack</p>}
+            else
+            {<p>Quiz</p>}
         </dd>
+        @if (Model.SurveyType == (int)SurveyType.Quiz)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.SurveyTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SurveyTime)
+            </dd>
+        }
+
+        @if (Model.AllowAccess == (int)SurveyAllowAccess.SpecificUsers)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.UsersAllowedAccess)
+            </dt>
+
+            <dd>
+                @foreach (string user in ViewBag.Users)
+                {<p>@user</p>}
+            </dd>
+        }
+
+
+
 
         <dt>
-            @Html.DisplayNameFor(model => model.SurveyTime)
+            @Html.DisplayNameFor(model => model.SurveyItems)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SurveyTime)
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.Label("Text")
+                    </th>
+                    <th>
+                        @Html.Label("Type")
+                    </th>
+                    <th>
+                        @Html.Label("Required")
+                    </th>
+                    <th>
+                        @Html.Label("Answers")
+                    </th>
+                  
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.SurveyItems)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @switch (item.Type)
+                            {
+                                case (int)SurveyItemType.ShortAnswer:<p>Short Answer</p>
+                                    break;
+                                case (int)SurveyItemType.Pargrph: <p>Pargrph</p>
+                                    break;
+                                case (int)SurveyItemType.SingleChoice: <p>Single Choice</p>
+                                    break;
+                                case (int)SurveyItemType.MultipleChoice: <p>Multiple Choice</p>
+                                    break;
+                                case (int)SurveyItemType.Rating: <p>Rating</p>
+                                    break;
+                                case (int)SurveyItemType.Date: <p>Date</p>
+                                    break;
+                                case (int)SurveyItemType.Time: <p>Time</p>
+                                    break;
+                                case (int)SurveyItemType.FileUpload: <p>FileUpload</p>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Required)
+                        </td>
+                        <td>
+                            @foreach (var answer in item.Answers)
+                            {<p>@answer.Text</p>}
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </table>
+
         </dd>
+
+
+
+
 
     </dl>
 </div>

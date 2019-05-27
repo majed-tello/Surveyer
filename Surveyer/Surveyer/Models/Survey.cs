@@ -7,13 +7,13 @@ using System.Web;
 
 namespace Surveyer.Models
 {
-    enum SurveyType
+    public enum SurveyType
     {
         FeedBack=0,
         Quiz=1
     }
 
-    enum SurveyAllowAccess
+    public enum SurveyAllowAccess
     {
         Aanonymous = 0,
         SpecificUsers = 1
@@ -55,7 +55,7 @@ namespace Surveyer.Models
         [Display(Name = "Type"), Range(0, 1)]
         public byte SurveyType { get; set; } = 0;
 
-        [Display(Name = "Quiz Time By minutes"),DataType(DataType.Time)]
+        [Display(Name = "Quiz Time By minutes")]
         public int? SurveyTime { get; set; }
 
         [Display(Name ="Color")]

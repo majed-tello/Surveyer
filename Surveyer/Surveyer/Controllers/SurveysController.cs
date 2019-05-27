@@ -50,7 +50,7 @@ namespace Surveyer.Controllers
                 }
                 survey.UserId = ((User)Session["user"]).Id;
                 Session["CurrentSurvey"] = survey;
-                if (survey.SurveyType==0)
+                if (survey.SurveyType==(int)SurveyType.FeedBack)
                     return RedirectToAction("CreateCompleate", "Surveys");
                 return RedirectToAction("CreateQuiz", "Surveys");
             }
@@ -178,6 +178,14 @@ namespace Surveyer.Controllers
 
         public ActionResult Detailes(string Id)
         {
+            var survey = jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).FirstOrDefault();
+            if (survey.AllowAccess==(int)SurveyAllowAccess.SpecificUsers)
+            {
+                List<string> Users = new List<string>();
+                foreach (var userid in survey.UsersAllowedAccess)
+                    Users.Add(HelperClass.GetUserName(this, userid));
+                ViewBag.Users = Users;
+            }
             return View(jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).FirstOrDefault());
         }
 
