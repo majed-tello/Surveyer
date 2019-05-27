@@ -291,6 +291,7 @@
     <Content Include="Views\UsersManagement\Login.cshtml" />
     <Content Include="Views\UsersManagement\Register.cshtml" />
     <Content Include="Views\Surveys\Detailes.cshtml" />
+    <Content Include="Views\Surveys\CreateQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

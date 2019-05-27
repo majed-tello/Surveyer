@@ -50,7 +50,9 @@ namespace Surveyer.Controllers
                 }
                 survey.UserId = ((User)Session["user"]).Id;
                 Session["CurrentSurvey"] = survey;
-                return RedirectToAction("CreateCompleate", "Surveys");
+                if (survey.SurveyType==0)
+                    return RedirectToAction("CreateCompleate", "Surveys");
+                return RedirectToAction("CreateQuiz", "Surveys");
             }
             return View(survey);
         }
@@ -101,6 +103,21 @@ namespace Surveyer.Controllers
             jsonIO.Surveys.AddItem(this, CurrentSurvey);
             Session["CurrentSurvey"] = null;
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult CreateQuiz()
+        {
+            Survey CurrentSurvey = (Survey)Session["CurrentSurvey"];
+            ViewBag.t = CurrentSurvey.Title;
+            ViewBag.description = CurrentSurvey.Description;
+            ViewBag.color = CurrentSurvey.SurveyColor.Name;
+            ViewBag.time = CurrentSurvey.SurveyTime;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateQuiz(FormCollection form)
+        {
+            return View();
         }
 
         private SurveyItem GetItem(string type, string text, bool required, List<Choice> choices)

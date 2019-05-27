@@ -55,8 +55,8 @@ namespace Surveyer.Models
         [Display(Name = "Type"), Range(0, 1)]
         public byte SurveyType { get; set; } = 0;
 
-        [Display(Name = "Quiz Time"),DataType(DataType.Time)]
-        public DateTime? SurveyTime { get; set; }
+        [Display(Name = "Quiz Time By minutes"),DataType(DataType.Time)]
+        public int? SurveyTime { get; set; }
 
         [Display(Name ="Color")]
         public Color SurveyColor { get; set; }
