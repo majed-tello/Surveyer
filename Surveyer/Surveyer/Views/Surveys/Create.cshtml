@@ -88,6 +88,10 @@
 }
 
 <script type="text/javascript">
+    
+
+
+    // show registered users on the site When you choose allow access is specific users
     function func1() {
         var selectstate = $('#d1').val();  
         if (selectstate == '1') {
@@ -97,12 +101,21 @@
 
     }
 
+    //show quiz time field When you choose type survey is quiz
     function func2() {
         var selectstate = $('#d2').val();
         if (selectstate == '1') {
             $('#u2').show();
         }
         else { $('#u2').hide(); }
-
     }
+
+
+   
+    // where load window  show the previously selected data
+    window.addEventListener('load', function () {
+        func1();
+        func2();
+    })
+
 </script>
