@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Surveyer.Models.SurveyResult>
+@using GridMvc.Html
+@using Surveyer.Models;
+@{
+    ViewBag.Title = "Statics";
+}
+
+
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Bootstrap.min.css")" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+
+<script src="~/Scripts/charts/exporting.js"></script>
+<script src="~/Scripts/charts/highcharts.js"></script>
+<h2>Statics</h2>
+
+
+
+
+@foreach (var item in ((Survey)ViewBag.Items).SurveyItems)
+{
+
+    if (item.Type == (int)SurveyItemType.MultipleChoice || item.Type == (int)SurveyItemType.SingleChoice || item.Type == (int)SurveyItemType.Rating)
+    {
+        <div id="@item.Id" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+        <script>
+
+            $(document).ready(function () {
+                $.getJSON("/Surveys/GetData?SurveyId=" + "@ViewBag.survId" + "&SurveyItemId=" + "@item.Id", function (data) {
+
+
+
+                    Highcharts.chart('@item.Id', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: data[0].ItemName
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: data[0].Item,
+                                y: data[0].Count
+                            }, {
+                                    name: data[1].Item,
+                                    y: data[1].Count
+                            }, {
+                                    name: data[2].Item,
+                                    y: data[2].Count
+                                }, {
+                                    name: data[3].Item,
+                                    y: data[3].Count
+                                }, {
+                                    name: data[4].Item,
+                                    y: data[4].Count
+                                }]
+                        }]
+                    });
+                });
+            });
+
+        </script>
+
+
+    }
+}
+
+
+
+
+
+
+<hr />
+
+@Html.Grid(Model).Columns(col=>
+{
+
+col.Add(c => c.UserId).Filterable(true);
+col.Add(c => c.PublishDate).Filterable(true);
+col.Add().Titled("results").Encoded(false).Sanitized(false).RenderValueAs(o => Html.Grid(o.surveyItemResults).Columns(col2 => {col2.Add(c => c.Id).Titled("");col2.Add(c => c.Value).Titled(""); })) ;
+
+
+}).WithPaging(10).Sortable(true)
+

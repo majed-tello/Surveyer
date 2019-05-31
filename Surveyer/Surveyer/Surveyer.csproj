@@ -160,6 +160,7 @@
     <Compile Include="HelperClasses\JsonDataType.cs" />
     <Compile Include="HelperClasses\JsonIO.cs" />
     <Compile Include="Models\Choice.cs" />
+    <Compile Include="Models\Notefication.cs" />
     <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\SurveyItem.cs" />
     <Compile Include="Models\SurveyItemResult.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\SelectListViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\StaticsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +194,10 @@
     <Content Include="JsonData\SurveyDataFile.json" />
     <Content Include="JsonData\SurveyResultDataFile.json" />
     <Content Include="Grid.mvc.readme" />
+    <Content Include="JsonData\NoteficationDataFile.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\charts\exporting.js" />
+    <Content Include="Scripts\charts\highcharts.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
@@ -292,6 +297,9 @@
     <Content Include="Views\UsersManagement\Register.cshtml" />
     <Content Include="Views\Surveys\Detailes.cshtml" />
     <Content Include="Views\Surveys\CreateQuiz.cshtml" />
+    <Content Include="Views\Surveys\Statics.cshtml" />
+    <Content Include="Views\UsersManagement\MyNotefication.cshtml" />
+    <Content Include="Views\Surveys\ShareLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

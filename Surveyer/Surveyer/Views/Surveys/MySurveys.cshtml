@@ -9,6 +9,7 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/gridmvc.min.js"></script>
 @Html.ActionLink("Create New Survey", "Create", "Surveys", htmlAttributes: new { @class = "btn btn-info btn-sm " })
+@Html.ActionLink("Create New Survey", "GetData", "Surveys",new { SurveyId= "148b9508-4706-4c99-a451-0f5a91a0fe43", SurveyItemId= "fd8d1ad5-9d9d-4ed8-b5f1-881e488e8cc1" }, htmlAttributes: new { @class = "btn btn-info btn-sm " })
 <hr />
 
 @Html.Grid(Model).Columns(col=>
@@ -24,3 +25,9 @@
     col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Share Link", "ShareLink", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-warning btn-sm " }));
 
 }).WithPaging(10).Sortable(true)
+
+<script>
+    function showSharLink(id) {
+
+    }
+</script>

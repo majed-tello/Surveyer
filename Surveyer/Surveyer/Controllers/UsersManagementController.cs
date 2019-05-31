@@ -58,5 +58,9 @@ namespace Surveyer.Controllers
             }
             return View(user);
         }
+        public ActionResult MyNotefication()
+        {
+            return View(jsonIO.Notefications.GetData(this).Where(x => x.UserId == ((User)Session["user"]).Id).OrderByDescending(x => x.Date).ToList());
+        }
     }
 }

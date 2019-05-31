@@ -31,8 +31,8 @@
 
                     @if (((Surveyer.Models.User)Session["user"]) != null)
                     {
-                        <li style="padding-left:500px">
-                            @Html.ActionLink("Hello " + ((Surveyer.Models.User)Session["user"]).UserName, "Index", "Home")
+                        <li style="padding-left:400px">
+                            @Html.ActionLink("Hello " + ((Surveyer.Models.User)Session["user"]).UserName, "MyNotefication", "UsersManagement")
                         </li>
                         <li>
                             @Html.ActionLink("Logout", "Logout", "UsersManagement")
@@ -40,7 +40,7 @@
                     }
                     else
                     {
-                        <li style="padding-left:500px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
+                        <li style="padding-left:400px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
                     }
                 </ul>
                 </div>
