@@ -231,11 +231,13 @@
 
     function Addanswer(button) {
         var answernumber = button.parentElement.getAttribute("name");
+        var selectNumber = button.parentElement.parentElement.parentElement.previousElementSibling.children[0].getAttribute("name");
         console.log(answernumber);
+        
         button.parentElement.setAttribute("name", parseInt(answernumber) + 1);
         var buttonname = button.getAttribute("name");
         var div = document.createElement("DIV");
-        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-7"><input type="text" name=' + buttonname + '-a' + answernumber + ' required/><input type="checkbox" > Correct <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-7"><input type="text" name=' + buttonname + '-a' + answernumber + ' required/><input type="checkbox" name=s' + selectNumber + '-' + answernumber + '> Correct <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
         button.parentElement.appendChild(div);
     }
 
