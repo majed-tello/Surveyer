@@ -20,7 +20,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
+                <input id="save" type="button" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -30,3 +31,253 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script type="text/javascript">
+
+    var x = 0;
+
+    var countFillItem = 0;
+    var countSelectOption = 0;
+    var countAnswer = 0;
+    var count = 0;
+    var countCorrectSCAnswer = 0;
+    var countCorrectMCAnswer = 0;
+    var countMC = 0;
+
+    var arraySC = 0;
+    var checkSC = 0;
+
+    var arrayMC = 0;
+    var checkMC = 0;
+
+
+    //get button
+    var save = document.getElementById("save");
+    //get basediv
+    var main = document.getElementById("basediv");
+
+    save.onclick = function(){
+
+        arraySC = new Array();
+        arrayMC = new Array();
+      
+
+        //validation add item
+        if(main.childElementCount == 2){           
+            save.setAttribute("type","button");
+            alert("Add Item *_*");
+        }
+
+
+
+        //valid Select Option and add answer and number correct answer
+        if(main.childElementCount != 2){
+            save.setAttribute("type","button");
+
+            for(var i = 2 ; i < main.childElementCount  ; i++)
+            {
+
+                countCorrectSCAnswer=0;
+                countCorrectMCAnswer=0;
+                //valid Select Option
+                if(main.children[i].children[0].children[1].children[0].value == 'None')
+                {
+                    countSelectOption++;
+                    count++;
+                }
+                //valid add answer and number correct answer
+                if(main.children[i].children[0].children[1].children[0].value == 'Single Choice' || main.children[i].children[0].children[1].children[0].value =='Multiple Choice' )
+                {
+                    if(main.children[i].children[0].children[2].children[0].children[1].childElementCount == 2){
+                       
+                        countAnswer++;
+                        count++;
+                    }
+
+                    //valid number correct answer
+                    if(main.children[i].children[0].children[1].children[0].value == 'Single Choice' && main.children[i].children[0].children[2].children[0].children[1].childElementCount > 2 )
+                    {
+                        
+
+                        var childNum =  main.children[i].children[0].children[2].children[0].children[1].childElementCount;
+                        for(var j = 2 ; j<childNum ; j++ ){
+                            
+                            if( main.children[i].children[0].children[2].children[0].children[1].children[j].children[0].children[1].children[1].checked == true)
+                            {
+                                countCorrectSCAnswer++;
+                                console.log("sc"+countCorrectSCAnswer);
+                            }
+                        }
+
+                        arraySC=arraySC.concat(countCorrectSCAnswer);
+
+                        
+                    }
+
+                   if(main.children[i].children[0].children[1].children[0].value == 'Multiple Choice' && main.children[i].children[0].children[2].children[0].children[1].childElementCount > 2 )
+                    {
+                       // countMC++;
+                        var childNum=  main.children[i].children[0].children[2].children[0].children[1].childElementCount;
+                        for(var z = 2 ; z<childNum ; z++ ){
+                            if( main.children[i].children[0].children[2].children[0].children[1].children[z].children[0].children[1].children[1].checked == true)
+                            {
+                                countCorrectMCAnswer++;
+                                console.log("mc" + countCorrectMCAnswer);
+                            }
+                        }
+                        arrayMC=arrayMC.concat(countCorrectMCAnswer);
+
+
+                    }
+
+                }
+
+
+            }
+
+
+            checkSC = 0;
+            for(var i = 0 ; i<arraySC.length ; i++)
+            {
+                checkSC += arraySC[i];
+
+            }
+
+
+            checkMC=0;
+            for(var i = 0 ; i<arrayMC.length ; i++)
+            {
+                if(arrayMC[i] == 0)
+                {
+                    checkMC++;
+                        
+                }
+
+            }
+
+        
+         
+            
+            if(countSelectOption>0 && countAnswer==0 )
+            {
+                alert("Pleas Select an Option  *_* ");
+                countSelectOption=0;
+               
+            }
+            else if(countSelectOption==0 && countAnswer>0)
+            {
+                alert("Pleas Add Answer  *_* ");
+               
+                countAnswer=0;
+                
+            }
+            else if(countSelectOption>0 && countAnswer>0)
+            {
+                alert("Pleas Select an Option And Add Answer  *_* ");
+                countSelectOption=0;
+                countAnswer=0;                
+            }
+
+            else if(checkSC!= arraySC.length){
+                               
+                    alert("Select  One Correct Answer In Single Choice *_*");
+            }
+
+            else{
+               
+
+                if(checkMC>0)
+                {
+                    alert("Select  At Least One Correct Answer In Multiple Choice *_*");
+                }
+
+            }
+            
+
+        }
+
+        //submit form
+        if(main.childElementCount != 2 && count ==0)
+        {
+            
+            save.setAttribute("type","submit");
+           
+        }
+        count=0;
+
+
+    }
+
+
+
+
+
+   
+    function AddItem() {
+        var div = document.createElement("DIV");
+        div.setAttribute("style", "border:1px black solid");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Single Choice</option><option>Multiple Choice</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
+        document.getElementById("basediv").appendChild(div);
+        x++;
+
+    }
+
+
+
+    function removeItem(button) {
+        button.parentElement.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement.parentElement);
+    }
+
+    function Addanswer(button) {
+        var answernumber = button.parentElement.getAttribute("name");
+        var selectNumber = button.parentElement.parentElement.parentElement.previousElementSibling.children[0].getAttribute("name");
+        console.log(answernumber);
+        
+        button.parentElement.setAttribute("name", parseInt(answernumber) + 1);
+        var buttonname = button.getAttribute("name");
+        var div = document.createElement("DIV");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Answer</label><div class="col-md-7"><input type="text" name=' + buttonname + '-a' + answernumber + ' required/><input type="checkbox" name=s' + selectNumber + '-' + answernumber + '> Correct <input type="button" value="x" onclick="removeAnswer(this)" class=" btn btn-danger"  /></div></div>';
+        button.parentElement.appendChild(div);
+    }
+
+    
+    function removeAnswer(button) {
+
+        button.parentElement.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement.parentElement);
+    }
+
+
+
+    function changeOption(select) {
+        var selectname = select.getAttribute("name");
+        if (select.value == 'None') {
+            console.log('none');
+            select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
+        }
+
+        else if (select.value == 'Single Choice' || select.value == 'Multiple Choice') {
+            console.log('multi');
+            var node1 = document.createElement("DIV");
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input  type="text"  name=t' + selectname + ' required/> <input type="button" value="+" onclick="Addanswer(this)" class=" btn btn-success" name=b' + selectname + ' /></div></div>';
+            try {
+                select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
+            }
+            catch{ }
+            select.parentElement.parentElement.appendChild(node1);
+        }
+
+    }
+
+
+    //add item after current item
+    function AddItemOrdering(addItemOrdering) {
+        var div = document.createElement("DIV");
+        div.setAttribute("style", "border:1px black solid");
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Single Choice</option><option>Multiple Choice</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /> <input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
+        addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div,addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
+
+        x++;
+    }
+
+</script> 

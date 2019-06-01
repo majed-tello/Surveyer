@@ -39,11 +39,11 @@
 <script type="text/javascript">
 
 
-    //////////////////////////////////////////////***********  Edit By Raeed  *********/////////////////////////////////////
+    
 
     //get button
     var save = document.getElementById("save");
-    //get basdiv
+    //get basediv
     var main = document.getElementById("basediv");
 
 
@@ -88,6 +88,7 @@
 
             }
           */
+
         //valid Select Option
         if(main.childElementCount != 2){
             save.setAttribute("type","button");
@@ -147,8 +148,6 @@
 
     }
 
-    ///////////////////////////////////////////*********** End Edit  *********//////////////////////////////////////////////////
-
 
 
 
@@ -171,7 +170,7 @@
 
     function removeAnswer(button) {
 
-        button.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement);
+        button.parentElement.parentElement.parentElement.parentElement.removeChild(button.parentElement.parentElement.parentElement);
     }
 
 
@@ -216,7 +215,6 @@
     }
 
 
-    ////////////////////////////////////***********  Edit By Raeed  *********/////////////////////////////////
 
     //add item after current item
     function AddItemOrdering(addItemOrdering) {
@@ -227,7 +225,6 @@
 
         x++;
     }
-    /////////////////////////////////////*********** End Edit  *********/////////////////////////////////
   
 </script>
 
