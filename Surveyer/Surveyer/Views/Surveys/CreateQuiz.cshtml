@@ -99,7 +99,7 @@
                     if(main.children[i].children[0].children[1].children[0].value == 'Single Choice' && main.children[i].children[0].children[2].children[0].children[1].childElementCount > 2 )
                     {
                         
-
+                        
                         var childNum =  main.children[i].children[0].children[2].children[0].children[1].childElementCount;
                         for(var j = 2 ; j<childNum ; j++ ){
                             
@@ -117,7 +117,7 @@
 
                    if(main.children[i].children[0].children[1].children[0].value == 'Multiple Choice' && main.children[i].children[0].children[2].children[0].children[1].childElementCount > 2 )
                     {
-                       // countMC++;
+                        
                         var childNum=  main.children[i].children[0].children[2].children[0].children[1].childElementCount;
                         for(var z = 2 ; z<childNum ; z++ ){
                             if( main.children[i].children[0].children[2].children[0].children[1].children[z].children[0].children[1].children[1].checked == true)
@@ -181,7 +181,8 @@
 
             else if(checkSC!= arraySC.length){
                                
-                    alert("Select  One Correct Answer In Single Choice *_*");
+                alert("Select  One Correct Answer In Single Choice *_*");
+                count++;
             }
 
             else{
@@ -190,6 +191,7 @@
                 if(checkMC>0)
                 {
                     alert("Select  At Least One Correct Answer In Multiple Choice *_*");
+                    count++;
                 }
 
             }
