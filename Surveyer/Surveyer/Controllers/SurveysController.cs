@@ -236,7 +236,19 @@ namespace Surveyer.Controllers
 
             var surveyResult = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == SurveyId).ToList();
             foreach (var result in surveyResult)
-                staticsViewModels.Where(x => x.Item == (string)result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(xx => xx.Value).FirstOrDefault()).FirstOrDefault().Count++;
+            {
+                if (result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(x => x.Type).FirstOrDefault() == (int)SurveyItemType.MultipleChoice)
+                {
+                    var multiresults = (string)result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(x => x.Value).FirstOrDefault();
+                    if (multiresults == null) continue;
+                    var arrresults = multiresults.Split(',');
+                    foreach (var res in arrresults)
+                        staticsViewModels.Where(x => x.Item == res).FirstOrDefault().Count++;
+                }
+                else { var res = result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(xx => xx.Value).FirstOrDefault();
+                    if (res == null) continue;
+                    staticsViewModels.Where(x => x.Item == res.ToString()).FirstOrDefault().Count++; }
+            }
 
             return Json(staticsViewModels, JsonRequestBehavior.AllowGet);
         }

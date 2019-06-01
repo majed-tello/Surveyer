@@ -84,9 +84,13 @@
                     <div class="col-md-10">
                         @for (int i = 1; i <= 5; i++)
                         {
-                            @Html.RadioButton(item.Id,i, false)
-                            <text> @i.ToString() </text>
-                        }
+                            if (item.Required)
+                            {
+                                @Html.RadioButton(item.Id, i, false ,htmlAttributes: new { required = "required" })}
+                            else
+                            { @Html.RadioButton(item.Id, i, false) }
+                        <text> @i.ToString() </text>
+                    }
                     </div>
                 </div>
             }
