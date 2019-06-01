@@ -68,11 +68,11 @@
                 <div class="form-group">
                     @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @if (item.Required)
+                        @foreach (var answer in item.Answers)
                         {
-                            @Html.DropDownList(item.Id, new SelectList((IEnumerable<Choice>)item.Answers, "Text", "Text"), new { @class = "form-control mutisel", @multiple = "true", required = "required", id = "dropDown" })}
-                        else
-                        { @Html.DropDownList(item.Id, new SelectList((IEnumerable<Choice>)item.Answers, "Text", "Text"), new { @class = "form-control mutisel", @multiple = "true", id = "dropDown" })}
+                            <input type="checkbox" name="@item.Id" value="@answer.Text" />
+                            <text> @answer.Text </text>
+                        }
                     </div>
                 </div>
             }
@@ -82,11 +82,15 @@
                 <div class="form-group">
                     @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @for (int i = 0; i < 5; i++)
+                        @for (int i = 1; i <= 5; i++)
                         {
-                            @Html.RadioButton(item.Id, false)
-                            <text> @i.ToString() </text>
-                        }
+                            if (item.Required)
+                            {
+                                @Html.RadioButton(item.Id, i, false ,htmlAttributes: new { required = "required" })}
+                            else
+                            { @Html.RadioButton(item.Id, i, false) }
+                        <text> @i.ToString() </text>
+                    }
                     </div>
                 </div>
             }

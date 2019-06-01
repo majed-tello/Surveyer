@@ -101,6 +101,11 @@ namespace Surveyer.Controllers
                 }
             }
             jsonIO.Surveys.AddItem(this, CurrentSurvey);
+            if (CurrentSurvey.AllowAccess==(int)SurveyAllowAccess.SpecificUsers)
+            {
+                foreach (var user in CurrentSurvey.UsersAllowedAccess)
+                    jsonIO.Notefications.AddItem(this, new Notefication { UserId = user, Content = "You have been invited to fill out "+ CurrentSurvey.Title+ " survey by " + HelperClass.GetUserName(this,CurrentSurvey.UserId), Link = "http://localhost:49825/Surveys/FillSurvey?SurveyId="+ CurrentSurvey.Id });
+            }
             Session["CurrentSurvey"] = null;
             return RedirectToAction("Index", "Home");
         }
@@ -165,6 +170,7 @@ namespace Surveyer.Controllers
                 surveyresult.surveyItemResults.Add(new SurveyItemResult { Id = item.Id, Type = item.Type, Value = form[item.Id] });
             }
             jsonIO.SurveyResults.AddItem(this,surveyresult);
+            jsonIO.Notefications.AddItem(this, new Notefication { UserId = survey.UserId, Content = (surveyresult.UserId != "") ? "The "+HelperClass.GetSurveyTitle(this,survey.Id)+" survey was filled out by "+ HelperClass.GetUserName(this, surveyresult.UserId) : "The " + HelperClass.GetSurveyTitle(this, survey.Id) + " survey was filled out by an unknown person" ,Link= "http://localhost:49825/Surveys/Statics/"+ survey.Id });
             Session["fillsurvey"] = null;
             return RedirectToAction("Index","Home");
         }
@@ -172,7 +178,7 @@ namespace Surveyer.Controllers
 
         public ActionResult MySurveys()
         {
-            var surveys = jsonIO.Surveys.GetData(this).Where(x => x.UserId == ((User)Session["user"]).Id).ToList();
+            var surveys = jsonIO.Surveys.GetData(this).Where(x => x.UserId == ((User)Session["user"]).Id).OrderByDescending(x=>x.PublishDate).ToList();
             return View(surveys);
         }
 
@@ -187,6 +193,64 @@ namespace Surveyer.Controllers
                 ViewBag.Users = Users;
             }
             return View(jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).FirstOrDefault());
+        }
+
+        public ActionResult Statics(string Id)
+        {
+            var surveyresults = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == Id).OrderByDescending(x => x.PublishDate).ToList();
+            foreach(var item in surveyresults)
+                item.UserId=(item.UserId=="")? "unknown person" : HelperClass.GetUserName(this,item.UserId);
+            foreach (var item in surveyresults)
+                foreach (var resul in item.surveyItemResults)
+                    resul.Id = HelperClass.GetItemResultText(this, item.SurveyId, resul.Id);
+            ViewBag.Items = jsonIO.Surveys.GetData(this).Where(x=>x.Id==Id).FirstOrDefault();
+            ViewBag.survId = Id;
+            return View(surveyresults);
+        }
+        public ActionResult ShareLink(string Id)
+        {
+            ViewBag.ShareLink = "http://localhost:49825/Surveys/FillSurvey?SurveyId=" + Id;
+            return View();
+        }
+
+        public ActionResult GetData(string SurveyId,string SurveyItemId)
+        {
+            var surveyitems = jsonIO.Surveys.GetData(this).Where(x => x.Id == SurveyId).FirstOrDefault();
+            var item = surveyitems.SurveyItems.Where(x => x.Id == SurveyItemId).FirstOrDefault();
+            List<StaticsViewModel> staticsViewModels = new List<StaticsViewModel>();
+            if (item.Type == (int)SurveyItemType.SingleChoice || item.Type == (int)SurveyItemType.MultipleChoice) {
+                foreach (var x in item.Answers)
+                    staticsViewModels.Add(new StaticsViewModel { Item = x.Text, Count = 0 ,ItemName=item.Text});
+                for (int i = 0; i <= 5- staticsViewModels.Count; i++)
+                {
+                    staticsViewModels.Add(new StaticsViewModel { Item = "", Count = 0, ItemName = item.Text });
+                }
+                        }
+            else if (item.Type == (int)SurveyItemType.Rating)
+            {
+                for (int i = 1; i <=5; i++)
+                {
+                    staticsViewModels.Add(new StaticsViewModel { Item = i.ToString(), Count = 0, ItemName = item.Text });
+                }
+            }
+
+            var surveyResult = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == SurveyId).ToList();
+            foreach (var result in surveyResult)
+            {
+                if (result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(x => x.Type).FirstOrDefault() == (int)SurveyItemType.MultipleChoice)
+                {
+                    var multiresults = (string)result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(x => x.Value).FirstOrDefault();
+                    if (multiresults == null) continue;
+                    var arrresults = multiresults.Split(',');
+                    foreach (var res in arrresults)
+                        staticsViewModels.Where(x => x.Item == res).FirstOrDefault().Count++;
+                }
+                else { var res = result.surveyItemResults.Where(xx => xx.Id == SurveyItemId).Select(xx => xx.Value).FirstOrDefault();
+                    if (res == null) continue;
+                    staticsViewModels.Where(x => x.Item == res.ToString()).FirstOrDefault().Count++; }
+            }
+
+            return Json(staticsViewModels, JsonRequestBehavior.AllowGet);
         }
 
 

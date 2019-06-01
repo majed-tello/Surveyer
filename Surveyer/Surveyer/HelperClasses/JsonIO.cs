@@ -14,11 +14,14 @@ namespace Surveyer.HelperClasses
 
         public JsonDataType<SurveyResult> SurveyResults { get; set; }
 
+        public JsonDataType<Notefication> Notefications { get; set; }
+
         public JsonIO()
         {
             Users = new JsonDataType<User>("UserDataFile.json");
             Surveys = new JsonDataType<Survey>("SurveyDataFile.json");
             SurveyResults = new JsonDataType<SurveyResult>("SurveyResultDataFile.json");
+            Notefications = new JsonDataType<Notefication>("NoteficationDataFile.json");
         }
     }
 }
