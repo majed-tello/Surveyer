@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Rotativa;
 
 namespace Surveyer.Controllers
 {
@@ -234,6 +235,21 @@ namespace Surveyer.Controllers
             ViewBag.survId = Id;
             return View(surveyresults);
         }
+        public ActionResult StaticsToPrint(string Id)
+        {
+            var surveyresults = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == Id).OrderByDescending(x => x.PublishDate).ToList();
+            foreach (var item in surveyresults)
+                item.UserId = (item.UserId == "") ? "unknown person" : HelperClass.GetUserName(this, item.UserId);
+            foreach (var item in surveyresults)
+                foreach (var resul in item.surveyItemResults)
+                    resul.Id = HelperClass.GetItemResultText(this, item.SurveyId, resul.Id);
+            foreach (var item in surveyresults)
+                item.Id = GetMarks(item.SurveyId, item.Id).ToString();
+            ViewBag.ty =(int) jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).Select(x => x.SurveyType).FirstOrDefault();
+            ViewBag.t = jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).Select(x => x.Title).FirstOrDefault();
+            ViewBag.d = jsonIO.Surveys.GetData(this).Where(x => x.Id == Id).Select(x => x.Description).FirstOrDefault();
+            return View(surveyresults);
+        }
         public ActionResult ShareLink(string Id)
         {
             ViewBag.ShareLink = "http://localhost:49825/Surveys/FillSurvey?SurveyId=" + Id;
@@ -329,6 +345,12 @@ namespace Surveyer.Controllers
             int passpersoncount = GetPassPersonCount(SurveyId);
             List<StaticsViewModel> data = new List<StaticsViewModel>() { new StaticsViewModel() { Item = "Pass", Count = passpersoncount, ItemName = "Pass and Fail " }, new StaticsViewModel() { Item = "Fail", Count = results.Count - passpersoncount, ItemName = "Pass and Fail " } };
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PrintReport(string Id)
+        {
+            var Report = new ActionAsPdf("StaticsToPrint", new { id= Id });
+            return Report;
         }
 
 

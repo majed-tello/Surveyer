@@ -22,6 +22,7 @@
     col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Detailes", "Detailes", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm " }));
     col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Statics", "Statics", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-success btn-sm " }));
     col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Share Link", "ShareLink", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-warning btn-sm " }));
+    col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Print PDF Report", "PrintReport", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-danger btn-sm " }));
 
 }).WithPaging(10).Sortable(true)
 
