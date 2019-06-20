@@ -122,7 +122,32 @@ namespace Surveyer.Controllers
         [HttpPost]
         public ActionResult CreateQuiz(FormCollection form)
         {
-            return View();
+            Survey CurrentSurvey = (Survey)Session["CurrentSurvey"];
+            for (int i = 0; i < 100; i++)
+            {
+                var type = form[i.ToString()];
+                if (type == null)
+                    continue;
+
+                List<Choice> answers = new List<Choice>();
+                for (int j = 0; j < 100; j++)
+                {
+                    var answer = form["b" + i + "-a" + j];
+                    var iscorect = form["s" + i + "-" + j];
+                    if (answer != null)
+                        answers.Add(new Choice { Text = answer, IsCorect = (iscorect == null) ? false : true });
+                }
+                var text = form["t" + i].ToString();
+                CurrentSurvey.SurveyItems.Add(GetItem(type, text, false, answers));
+            }
+            jsonIO.Surveys.AddItem(this, CurrentSurvey);
+            if (CurrentSurvey.AllowAccess == (int)SurveyAllowAccess.SpecificUsers)
+            {
+                foreach (var user in CurrentSurvey.UsersAllowedAccess)
+                    jsonIO.Notefications.AddItem(this, new Notefication { UserId = user, Content = "You have been invited to fill out " + CurrentSurvey.Title + " survey by " + HelperClass.GetUserName(this, CurrentSurvey.UserId), Link = "http://localhost:49825/Surveys/FillSurvey?SurveyId=" + CurrentSurvey.Id });
+            }
+            Session["CurrentSurvey"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
         private SurveyItem GetItem(string type, string text, bool required, List<Choice> choices)
@@ -203,6 +228,8 @@ namespace Surveyer.Controllers
             foreach (var item in surveyresults)
                 foreach (var resul in item.surveyItemResults)
                     resul.Id = HelperClass.GetItemResultText(this, item.SurveyId, resul.Id);
+            foreach (var item in surveyresults)
+                item.Id = GetMarks(item.SurveyId, item.Id).ToString();
             ViewBag.Items = jsonIO.Surveys.GetData(this).Where(x=>x.Id==Id).FirstOrDefault();
             ViewBag.survId = Id;
             return View(surveyresults);
@@ -251,6 +278,57 @@ namespace Surveyer.Controllers
             }
 
             return Json(staticsViewModels, JsonRequestBehavior.AllowGet);
+        }
+
+        public float GetMarks(string surveyid,string survetresultid)
+        {
+            var survey = jsonIO.Surveys.GetData(this).Where(x => x.Id == surveyid).FirstOrDefault();
+            var res = jsonIO.SurveyResults.GetData(this).Where(x => x.Id== survetresultid).FirstOrDefault();
+            float itemmark = 100 / survey.SurveyItems.Count();
+            float marks = 0;
+            foreach(var item in survey.SurveyItems)
+            {
+                if (item.Type==(int)SurveyItemType.SingleChoice)
+                {
+                    var ans = res.surveyItemResults.Where(x => x.Id == item.Id).Select(x => x.Value).FirstOrDefault();
+                    if (ans == null)
+                        continue;
+                    if (res.surveyItemResults.Where(x => x.Id == item.Id).Select(x => x.Value).FirstOrDefault().ToString() == item.Answers.Where(x => x.IsCorect).Select(x => x.Text).FirstOrDefault())
+                        marks += itemmark;
+                }
+                if (item.Type == (int)SurveyItemType.MultipleChoice)
+                {
+                    var corectanswes = item.Answers.Where(x => x.IsCorect).ToList();
+                    float sumitemmark = itemmark / corectanswes.Count();
+                    var ans = res.surveyItemResults.Where(x => x.Id == item.Id).Select(x => x.Value).FirstOrDefault();
+                    if (ans == null)
+                        continue;
+                    string[] ansers = res.surveyItemResults.Where(x => x.Id == item.Id).Select(x => x.Value).FirstOrDefault().ToString().Split(',');
+
+                    foreach (var subitem in corectanswes)
+                    {
+                        if (ansers.Contains(subitem.Text))
+                            marks += sumitemmark;
+                    }
+                }
+            }
+            return marks;
+        }
+        public int GetPassPersonCount(string SurveyId)
+        {
+            int PassPersonCount = 0;
+            var results = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == SurveyId).ToList();
+            foreach (var item in results)
+                if (GetMarks(item.SurveyId, item.Id) >= 60)
+                    PassPersonCount++;
+            return PassPersonCount;
+        }
+        public JsonResult GetPassPerson(string SurveyId)
+        {
+            var results = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == SurveyId).ToList();
+            int passpersoncount = GetPassPersonCount(SurveyId);
+            List<StaticsViewModel> data = new List<StaticsViewModel>() { new StaticsViewModel() { Item = "Pass", Count = passpersoncount, ItemName = "Pass and Fail " }, new StaticsViewModel() { Item = "Fail", Count = results.Count - passpersoncount, ItemName = "Pass and Fail " } };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
 

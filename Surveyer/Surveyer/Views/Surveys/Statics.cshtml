@@ -13,6 +13,66 @@
 
 <script src="~/Scripts/charts/exporting.js"></script>
 <script src="~/Scripts/charts/highcharts.js"></script>
+
+
+@if (((Survey)ViewBag.Items).SurveyType == (int)SurveyType.Quiz)
+{
+<h2>Statistics of the number of successful persons and retirees</h2>
+    <div id="pp1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+    <script>
+
+            $(document).ready(function () {
+                $.getJSON("/Surveys/GetPassPerson?SurveyId=" + "@ViewBag.survId" , function (data) {
+
+
+
+                    Highcharts.chart('pp1', {
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false,
+                            type: 'pie'
+                        },
+                        title: {
+                            text: data[0].ItemName
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Brands',
+                            colorByPoint: true,
+                            data: [{
+                                name: data[0].Item,
+                                y: data[0].Count
+                            }, {
+                                    name: data[1].Item,
+                                    y: data[1].Count
+                            }]
+                        }]
+                    });
+                });
+            });
+
+    </script>
+}
+
+
+
 <h2>Charts</h2>
 
 
@@ -92,16 +152,19 @@
 
 
 
-        <h2>Statics</h2>
+<h2>Results</h2>
 <hr />
 
 @Html.Grid(Model).Columns(col=>
 {
 
-col.Add(c => c.UserId).Filterable(true);
-col.Add(c => c.PublishDate).Filterable(true);
-col.Add().Titled("results").Encoded(false).Sanitized(false).RenderValueAs(o => Html.Grid(o.surveyItemResults).Columns(col2 => {col2.Add(c => c.Id).Titled("");col2.Add(c => c.Value).Titled(""); })) ;
-
+    col.Add(c => c.UserId).Titled("User").Filterable(true);
+    col.Add(c => c.PublishDate).Titled("Publish Date").Filterable(true);
+    col.Add().Titled("results").Encoded(false).Sanitized(false).RenderValueAs(o => Html.Grid(o.surveyItemResults).Columns(col2 => {col2.Add(c => c.Id).Titled("");col2.Add(c => c.Value).Titled(""); })) ;
+    if (((Survey)ViewBag.Items).SurveyType == (int)SurveyType.Quiz)
+    {
+        col.Add(c => c.Id).Titled("Marks").Filterable(true);
+    }
 
 }).WithPaging(10).Sortable(true)
 
