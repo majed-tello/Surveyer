@@ -23,26 +23,35 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("My Surveys", "MySurveys", "Surveys")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-
-
                     @if (((Surveyer.Models.User)Session["user"]) != null)
                     {
-                        <li style="padding-left:400px">
-                            @Html.ActionLink("Hello " + ((Surveyer.Models.User)Session["user"]).UserName, "MyNotefication", "UsersManagement")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Logout", "Logout", "UsersManagement")
-                        </li>
+                        <li>@Html.ActionLink("My Surveys", "MySurveys", "Surveys")</li>
                     }
-                    else
-                    {
-                        <li style="padding-left:400px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
-                    }
-                </ul>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
+
+                        @if (((Surveyer.Models.User)Session["user"]) != null)
+                        {
+                            <li style="padding-left:300px">
+                                @if (((Surveyer.Models.User)Session["user"]).ImageURL == null)
+                                {<img class="img-circle" src="@Url.Content("~/Imeges/defultuser.png")" alt="" height=50 width=50 /> }
+                                else
+                                {<img class="img-circle" src="@Url.Content($"~/Imeges/{((Surveyer.Models.User)Session["user"]).ImageURL}")" alt="" height=50 width=50 />}
+                            </li>
+                            <li>
+                                @Html.ActionLink(((Surveyer.Models.User)Session["user"]).UserName, "MyNotefication", "UsersManagement")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Logout", "Logout", "UsersManagement")
+                            </li>
+                        }
+                        else
+                        {
+                            <li style="padding-left:400px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
+                        }
+                    </ul>
                 </div>
         </div>
     </div>

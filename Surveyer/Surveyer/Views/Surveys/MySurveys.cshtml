@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Surveyer.Models.Survey>
 @using GridMvc.Html
 @{
+    /**/
+
     ViewBag.Title = "MySurveys";
 }
 
@@ -11,23 +13,19 @@
 @Html.ActionLink("Create New Survey", "Create", "Surveys", htmlAttributes: new { @class = "btn btn-info btn-sm " })
 <hr />
 
+
 @Html.Grid(Model).Columns(col=>
 {
 
-    col.Add(c => c.Title).Filterable(true);
-    col.Add(c => c.Description);
-    col.Add(c => c.PublishDate).Filterable(true);
-    col.Add(c => c.SurveyType).RenderValueAs(c=> (c.SurveyType==0)? "FeedBack": "Quiz");
-    col.Add(c => c.AllowAccess).RenderValueAs(c => (c.AllowAccess == 0) ? "Aanonymous" : "Specific Users");
-    col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Detailes", "Detailes", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm " }));
-    col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Statics", "Statics", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-success btn-sm " }));
-    col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Share Link", "ShareLink", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-warning btn-sm " }));
-    col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Print PDF Report", "PrintReport", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-danger btn-sm " }));
+col.Add(c => c.Title).Filterable(true);
+col.Add(c => c.Description);
+col.Add(c => c.PublishDate).Filterable(true);
+col.Add(c => c.SurveyType).RenderValueAs(c=> (c.SurveyType==0)? "FeedBack": "Quiz");
+col.Add(c => c.AllowAccess).RenderValueAs(c => (c.AllowAccess == 0) ? "Aanonymous" : "Specific Users");
+col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Detailes", "Detailes", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm " }));
+col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Statics", "Statics", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-success btn-sm " }));
+col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Share Link", "ShareLink", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-warning btn-sm " }));
+col.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => Html.ActionLink("Print PDF Report", "PrintReport", new { id = o.Id }, htmlAttributes: new { @class = "btn btn-danger btn-sm " }));
 
 }).WithPaging(10).Sortable(true)
 
-<script>
-    function showSharLink(id) {
-
-    }
-</script>

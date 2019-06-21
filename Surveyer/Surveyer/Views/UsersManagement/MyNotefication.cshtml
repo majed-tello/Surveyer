@@ -4,40 +4,43 @@
     ViewBag.Title = "MyNotefication";
 }
 
-<h2>MyNotefication</h2>
+
+
+
+
+<h2>@ViewBag.name Notefication</h2>
+<img class="img-circle" src="@ViewBag.image" alt="" height=150 width=150 />
 
 
 <table class="table">
     <tr>
-      
+
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Link)
-        </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-     
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                    <a href="@item.Link">@item.Content</a>
+        
+            </td>
        
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            <a href="@item.Link">Link</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-       
-    
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+
+        </tr>
+    }
 
 </table>

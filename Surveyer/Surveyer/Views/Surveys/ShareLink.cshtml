@@ -4,5 +4,26 @@
 }
 
 <h2>Share Link</h2>
-<a href="@ViewBag.ShareLink">@ViewBag.ShareLink</a>
+<a id="sl1" href="@ViewBag.ShareLink">@ViewBag.ShareLink</a>
+<button class="btn btn-success btn-sm" onclick="copyToClipboard()">Copy To Clipboard</button>
 
+<h2>QR Code</h2>
+<img src="@Url.Action("GenerateQrCode",new {ShareLink= @ViewBag.ShareLink})" alt="qr code" />
+
+
+<script>
+    function copyToClipboard() {
+        var text = document.getElementById("sl1").textContent;
+        console.log(text);
+        var copyFrom = $('<textarea/>');
+        copyFrom.css({
+            position: "absolute",
+            left: "-1000px",
+            top: "-1000px",
+        });
+        copyFrom.text(text);
+        $('body').append(copyFrom);
+        copyFrom.select();
+        document.execCommand('copy');
+    }
+</script>

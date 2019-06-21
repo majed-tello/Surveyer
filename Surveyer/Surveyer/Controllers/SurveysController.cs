@@ -8,17 +8,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Rotativa;
+using QRCoder;
+using System.Drawing;
+using System.IO;
 
 namespace Surveyer.Controllers
 {
+    [CustomAuthorize]
     public class SurveysController : Controller
     {
         private JsonIO jsonIO = new JsonIO();
-        // GET: Surveys
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Create()
         {
@@ -167,7 +166,7 @@ namespace Surveyer.Controllers
             return new SurveyItem((int)SurveyItemType.ShortAnswer, text, required, choices);
         }
 
-
+        [AllowAnonymous]
         public ActionResult FillSurvey(string SurveyId)
         {
             Survey survey = jsonIO.Surveys.GetData(this).Where(x => x.Id == SurveyId).FirstOrDefault();
@@ -182,7 +181,7 @@ namespace Surveyer.Controllers
             }
             return View(survey);
         }
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public ActionResult FillSurvey(FormCollection form)
         {
             Survey survey = (Survey)Session["fillsurvey"];
@@ -252,8 +251,20 @@ namespace Surveyer.Controllers
         }
         public ActionResult ShareLink(string Id)
         {
-            ViewBag.ShareLink = "http://localhost:49825/Surveys/FillSurvey?SurveyId=" + Id;
+            string ShareLink = "http://localhost:49825/Surveys/FillSurvey?SurveyId=" + Id;
+            ViewBag.ShareLink = ShareLink;
             return View();
+        }
+        public ActionResult GenerateQrCode(string ShareLink)
+        {
+            QRCodeGenerator Qr = new QRCodeGenerator();
+            QRCodeData data = Qr.CreateQrCode(ShareLink, QRCodeGenerator.ECCLevel.Q);
+            QRCode code = new QRCode(data);
+            Bitmap i = code.GetGraphic(5);
+            var s = new MemoryStream();
+            i.Save(s, System.Drawing.Imaging.ImageFormat.Png);
+            byte[] b = s.ToArray();
+            return File(b, "image/jpeg");
         }
 
         public ActionResult GetData(string SurveyId,string SurveyItemId)

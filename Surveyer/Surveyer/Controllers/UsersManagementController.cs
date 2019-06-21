@@ -3,6 +3,7 @@ using Surveyer.Models;
 using Surveyer.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,10 +14,6 @@ namespace Surveyer.Controllers
     {
         private JsonIO jsonIO = new JsonIO();
 
-        public ActionResult Index()
-        {
-            return View(jsonIO.Users.GetData(this));
-        }
         // GET: UsersManagement
         public ActionResult Login()
         {
@@ -48,18 +45,30 @@ namespace Surveyer.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(User user,HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
+                if (Image != null)
+                {
+                    string path = Server.MapPath("~/Imeges/" + Image.FileName);
+                    Image.SaveAs(path);
+                    user.ImageURL = Image.FileName;
+                }
                 user.Password = user.Password.GetHashCode().ToString();
                 jsonIO.Users.AddItem(this, user);
                 return RedirectToAction("Index","Home");
             }
             return View(user);
         }
+        [CustomAuthorize]
         public ActionResult MyNotefication()
         {
+            ViewBag.name = ((User)Session["user"]).UserName;
+            if (((User)Session["user"]).ImageURL == null)
+                ViewBag.image = Url.Content("~/Imeges/defultuserx.png");
+            else
+                ViewBag.image = Url.Content($"~/Imeges/{((User)Session["user"]).ImageURL}");
             return View(jsonIO.Notefications.GetData(this).Where(x => x.UserId == ((User)Session["user"]).Id).OrderByDescending(x => x.Date).ToList());
         }
     }
