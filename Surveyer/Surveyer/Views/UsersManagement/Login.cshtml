@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="background-image:url('/Content/images design/1f503fcfd14bc5367f656a145975eeec.jpg');background-size: 100%;background-position: center center;">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,14 +32,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Login" class="btn btn-danger" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Register", "Register", "UsersManagement")
+    @Html.ActionLink("Register", "Register", "UsersManagement",htmlAttributes:new {@class= "btn btn-default" })
 </div>
 
 @section Scripts {

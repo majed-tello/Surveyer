@@ -22,7 +22,10 @@ namespace Surveyer.Models
 
         public SurveyItem(byte type,string text, bool required, List<Choice> Answers)
         {
-            this.Id = Guid.NewGuid().ToString();
+            if (type == (int)SurveyItemType.FileUpload)
+                this.Id = "file";
+            else
+                this.Id = Guid.NewGuid().ToString();
             this.Type = type;
             this.Text = text;
             this.Required = required;

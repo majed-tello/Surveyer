@@ -49,6 +49,9 @@ namespace Surveyer.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (jsonIO.Users.GetData(this).Where(x=>x.UserName==user.UserName).Count()!=0)
+                    return View(user);
+
                 if (Image != null)
                 {
                     string path = Server.MapPath("~/Imeges/" + Image.FileName);

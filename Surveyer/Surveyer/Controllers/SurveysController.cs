@@ -182,7 +182,7 @@ namespace Surveyer.Controllers
             return View(survey);
         }
         [HttpPost, AllowAnonymous]
-        public ActionResult FillSurvey(FormCollection form)
+        public ActionResult FillSurvey(FormCollection form, HttpPostedFileBase file)
         {
             Survey survey = (Survey)Session["fillsurvey"];
             SurveyResult surveyresult = new SurveyResult();
@@ -192,12 +192,26 @@ namespace Surveyer.Controllers
             surveyresult.UserId = (user == null) ? "" : user.Id;
             foreach (var item in survey.SurveyItems)
             {
-                surveyresult.surveyItemResults.Add(new SurveyItemResult { Id = item.Id, Type = item.Type, Value = form[item.Id] });
+                if (item.Type == (int)SurveyItemType.FileUpload)
+                    surveyresult.surveyItemResults.Add(new SurveyItemResult { Id = item.Id, Type = item.Type, Value = file.FileName });
+                else
+                    surveyresult.surveyItemResults.Add(new SurveyItemResult { Id = item.Id, Type = item.Type, Value = form[item.Id] });
             }
             jsonIO.SurveyResults.AddItem(this,surveyresult);
             jsonIO.Notefications.AddItem(this, new Notefication { UserId = survey.UserId, Content = (surveyresult.UserId != "") ? "The "+HelperClass.GetSurveyTitle(this,survey.Id)+" survey was filled out by "+ HelperClass.GetUserName(this, surveyresult.UserId) : "The " + HelperClass.GetSurveyTitle(this, survey.Id) + " survey was filled out by an unknown person" ,Link= "http://localhost:49825/Surveys/Statics/"+ survey.Id });
             Session["fillsurvey"] = null;
+            if (file != null)
+            {
+                string path = Server.MapPath("~/UploaddedFiles/" + file.FileName);
+                file.SaveAs(path);
+            }
             return RedirectToAction("Index","Home");
+        }
+
+        public FileResult Download(string filename)
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/UploaddedFiles/" + filename));
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, filename);
         }
 
 
@@ -234,6 +248,7 @@ namespace Surveyer.Controllers
             ViewBag.survId = Id;
             return View(surveyresults);
         }
+        [AllowAnonymous]
         public ActionResult StaticsToPrint(string Id)
         {
             var surveyresults = jsonIO.SurveyResults.GetData(this).Where(x => x.SurveyId == Id).OrderByDescending(x => x.PublishDate).ToList();
@@ -275,7 +290,8 @@ namespace Surveyer.Controllers
             if (item.Type == (int)SurveyItemType.SingleChoice || item.Type == (int)SurveyItemType.MultipleChoice) {
                 foreach (var x in item.Answers)
                     staticsViewModels.Add(new StaticsViewModel { Item = x.Text, Count = 0 ,ItemName=item.Text});
-                for (int i = 0; i <= 5- staticsViewModels.Count; i++)
+                int countt = 5 - staticsViewModels.Count;
+                for (int i = 0; i <= countt; i++)
                 {
                     staticsViewModels.Add(new StaticsViewModel { Item = "", Count = 0, ItemName = item.Text });
                 }

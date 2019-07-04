@@ -12,22 +12,22 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal" style="background:@ViewBag.color" id="basediv">
-    <hr />
+    <div class="form-horizontal" style="background-image:url('/Content/images design/1f503fcfd14bc5367f656a145975eeec.jpg');background-size: 100%;background-position: center center;" id="basediv">
+        <hr />
 
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="AddItem" class="btn btn-info" onclick="AddItem()" />
-                <input id="save" type="button" value="Save" class="btn btn-success" />
+                <input type="button" value="AddItem" class="btn btn-default" onclick="AddItem()" />
+                <input id="save" type="button" value="Save" class="btn btn-danger" />
             </div>
         </div>
 
 
-</div>
+    </div>
 }
 
 
@@ -39,7 +39,7 @@
 <script type="text/javascript">
 
 
-    
+
 
     //get button
     var save = document.getElementById("save");
@@ -54,16 +54,16 @@
     var count = 0;
 
 
-    
 
-    ///////////// Validation [ Add Item And Fill Item And Select Option ] and Submit 
-    save.onclick = function(){
+
+    ///////////// Validation [ Add Item And Fill Item And Select Option ] and Submit
+    save.onclick = function () {
 
         //validation add item
-        if(main.childElementCount == 2){
+        if (main.childElementCount == 2) {
 
-           
-            save.setAttribute("type","button");
+
+            save.setAttribute("type", "button");
             alert("Add Item *_*");
 
         }
@@ -90,22 +90,19 @@
           */
 
         //valid Select Option
-        if(main.childElementCount != 2){
-            save.setAttribute("type","button");
+        if (main.childElementCount != 2) {
+            save.setAttribute("type", "button");
 
-          
+
             //validation Select Option
-            for(var i = 2 ; i < main.childElementCount  ; i++)
-            {
-                if(main.children[i].children[0].children[1].children[0].value == 'None')
-                {
+            for (var i = 2; i < main.childElementCount; i++) {
+                if (main.children[i].children[0].children[1].children[0].value == 'None') {
                     countSelectOption++;
                     count++;
                 }
-                if(main.children[i].children[0].children[1].children[0].value == 'Single Choice' || main.children[i].children[0].children[1].children[0].value =='Multiple Choice' )
-                {
-                    if(main.children[i].children[0].children[2].children[0].children[1].childElementCount == 3){
-                       
+                if (main.children[i].children[0].children[1].children[0].value == 'Single Choice' || main.children[i].children[0].children[1].children[0].value == 'Multiple Choice') {
+                    if (main.children[i].children[0].children[2].children[0].children[1].childElementCount == 3) {
+
                         countAnswer++;
                         count++;
                     }
@@ -114,37 +111,33 @@
 
 
             }
-            if(countSelectOption>0 && countAnswer==0)
-            {
+            if (countSelectOption > 0 && countAnswer == 0) {
                 alert("Pleas Select an Option  *_* ");
-                countSelectOption=0;
+                countSelectOption = 0;
             }
-            else if(countSelectOption==0 && countAnswer>0)
-            {
+            else if (countSelectOption == 0 && countAnswer > 0) {
                 alert("Pleas Add Answer  *_* ");
-               
-                countAnswer=0;
+
+                countAnswer = 0;
             }
-           else if(countSelectOption>0 && countAnswer>0)
-            {
-               alert("Pleas Select an Option And Add Answer  *_* ");
-                countSelectOption=0;
-                countAnswer=0;
-                
+            else if (countSelectOption > 0 && countAnswer > 0) {
+                alert("Pleas Select an Option And Add Answer  *_* ");
+                countSelectOption = 0;
+                countAnswer = 0;
+
             }
 
         }
 
         //submit form
-        if(main.childElementCount != 2 && count ==0)
-        {
-           
-            save.setAttribute("type","submit");
-           
-           
+        if (main.childElementCount != 2 && count == 0) {
+
+            save.setAttribute("type", "submit");
+
+
         }
-        count=0;
-        
+        count = 0;
+
 
     }
 
@@ -156,7 +149,7 @@
     function AddItem() {
         var div = document.createElement("DIV");
         div.setAttribute("style", "border:1px black solid");
-        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option >Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option >Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /><input type="button" value="AddItem" class="btn btn-default" onclick="AddItemOrdering(this)" /></div></div>';
         document.getElementById("basediv").appendChild(div);
         x++;
 
@@ -204,7 +197,7 @@
         else if (select.value == 'Single Choice' || select.value == 'Multiple Choice') {
             console.log('multi');
             var node1 = document.createElement("DIV");
-            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input  type="text"  name=t' + selectname + ' required/><input type="checkbox" name=r' + selectname + '> Required <input type="button" value="+" onclick="Addanswer(this)" class=" btn btn-success" name=b' + selectname + ' /></div></div>';
+            node1.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Text</label><div class="col-md-6" name="0"><input  type="text"  name=t' + selectname + ' required/><input type="checkbox" name=r' + selectname + '> Required <input type="button" value="+" onclick="Addanswer(this)" class=" btn" name=b' + selectname + ' /></div></div>';
             try {
                 select.parentElement.parentElement.removeChild(select.parentElement.parentElement.children[2]);
             }
@@ -220,12 +213,12 @@
     function AddItemOrdering(addItemOrdering) {
         var div = document.createElement("DIV");
         div.setAttribute("style", "border:1px black solid");
-        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /> <input type="button" value="AddItem" class="btn btn-info" onclick="AddItemOrdering(this)" /></div></div>';
-        addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div,addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
+        div.innerHTML = '<div class="form-group"><label class="control-label col-md-2">Survey Item</label><div class="col-md-10" ><select  name = ' + x + ' onchange="changeOption(this)"><option>None</option><option>Short Answer</option><option>Pargrph</option><option>Single Choice</option><option>Multiple Choice</option><option>Rating</option><option>File Upload</option><option>Date</option><option>Time</option></select><input type="button" value="Remove" onclick="removeItem(this)" class=" btn btn-danger"  /> <input type="button" value="AddItem" class="btn btn-default" onclick="AddItemOrdering(this)" /></div></div>';
+        addItemOrdering.parentElement.parentElement.parentElement.parentElement.insertBefore(div, addItemOrdering.parentElement.parentElement.parentElement.nextSibling);
 
         x++;
     }
-  
+
 </script>
 
 

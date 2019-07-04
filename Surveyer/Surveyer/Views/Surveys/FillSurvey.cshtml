@@ -3,162 +3,155 @@
 @{
     ViewBag.Title = "FillSurvey";
 }
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <h2>@Model.Title</h2>
 <p>@Model.Description</p>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("FillSurvey", "Surveys", FormMethod.Post, new { enctype = "multipart/Form-data" }))
 {
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
+<div class="form-horizontal" style="background-image:url('/Content/images design/1f503fcfd14bc5367f656a145975eeec.jpg');background-size: 100%;background-position: center center;">
 
-    <div class="form-horizontal">
-
-
-        @foreach (var item in Model.SurveyItems)
+    @foreach (var item in Model.SurveyItems)
+    {
+        if (item.Type == (int)SurveyItemType.ShortAnswer)
         {
-            if (item.Type == (int)SurveyItemType.ShortAnswer)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @if (item.Required)
-                        {
-                            @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", required = "required" } })}
-                        else
-                        { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control" } })}
-
-                    </div>
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (item.Required)
+                    {
+                        @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", required = "required" } })}
+                    else
+                    { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control" } })}
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.Pargrph)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @if (item.Required)
-                        {
-                            @Html.TextArea(item.Id, new { htmlAttributes = new { @class = "form-control", required = "required" } })}
-                        else
-                        { @Html.TextArea(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id } })}
-                    </div>
+        if (item.Type == (int)SurveyItemType.Pargrph)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (item.Required)
+                    {
+                        @Html.TextArea(item.Id, new { htmlAttributes = new { @class = "form-control", required = "required" } })}
+                    else
+                    { @Html.TextArea(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id } })}
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.SingleChoice)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @foreach (var answer in item.Answers)
+        if (item.Type == (int)SurveyItemType.SingleChoice)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @foreach (var answer in item.Answers)
+                    {
+                        if (item.Required)
                         {
-                            if (item.Required)
-                            {
-                                @Html.RadioButton(item.Id, answer.Text, false, htmlAttributes: new { required = "required" })}
-                            else
-                            { @Html.RadioButton(item.Id, answer.Text, false)}
+                            @Html.RadioButton(item.Id, answer.Text, false, htmlAttributes: new { required = "required" })}
+                        else
+                        { @Html.RadioButton(item.Id, answer.Text, false)}
+                    <text> @answer.Text </text>
+                }
+                </div>
+            </div>
+        }
+
+        if (item.Type == (int)SurveyItemType.MultipleChoice)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @foreach (var answer in item.Answers)
+                    {
+                        <input type="checkbox" name="@item.Id" value="@answer.Text" />
                         <text> @answer.Text </text>
                     }
-                    </div>
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.MultipleChoice)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @foreach (var answer in item.Answers)
+        if (item.Type == (int)SurveyItemType.Rating)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (item.Required)
                         {
-                            <input type="checkbox" name="@item.Id" value="@answer.Text" />
-                            <text> @answer.Text </text>
-                        }
-                    </div>
+                            @Html.RadioButton(item.Id, i, false, htmlAttributes: new { required = "required" })}
+                        else
+                        { @Html.RadioButton(item.Id, i, false) }
+                    <text> @i.ToString() </text>
+                }
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.Rating)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            if (item.Required)
-                            {
-                                @Html.RadioButton(item.Id, i, false ,htmlAttributes: new { required = "required" })}
-                            else
-                            { @Html.RadioButton(item.Id, i, false) }
-                        <text> @i.ToString() </text>
+        if (item.Type == (int)SurveyItemType.FileUpload)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (item.Required)
+                    {
+                        <input name="@item.Id" type="file" required  />
+
                     }
-                    </div>
+                    else
+                    { <input name="@item.Id" type="file" />}
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.FileUpload)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @if (item.Required)
-                        {
-                            @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @type = "file", required = "required" } })}
-                        else
-                        { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "file" } })}
-                    </div>
+        if (item.Type == (int)SurveyItemType.Date)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (item.Required)
+                    {
+                        @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @type = "date", required = "required" } })}
+                    else
+                    { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "date" } })}
                 </div>
-            }
+            </div>
+        }
 
-            if (item.Type == (int)SurveyItemType.Date)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @if (item.Required)
-                        {
-                            @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @type = "date", required = "required" } })}
-                        else
-                        { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "date" } })}
-                    </div>
+        if (item.Type == (int)SurveyItemType.Time)
+        {
+            <div class="form-group">
+                @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (item.Required)
+                    {
+                        @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @type = "time", required = "required" } })}
+                    else
+                    { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "time" } })}
                 </div>
-            }
-
-            if (item.Type == (int)SurveyItemType.Time)
-            {
-                <div class="form-group">
-                    @Html.Label(item.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @if (item.Required)
-                        {
-                            @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @type = "time", required = "required" } })}
-                        else
-                        { @Html.Editor(item.Id, new { htmlAttributes = new { @class = "form-control", @name = item.Id, @type = "time" } })}
-                    </div>
-                </div>
-            }
-
-
+            </div>
         }
 
 
+    }
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Fill" class="btn btn-success" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Fill" class="btn btn-danger" />
         </div>
-
-
-
-
     </div>
+
+
+</div>
 }
 
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
 }
-

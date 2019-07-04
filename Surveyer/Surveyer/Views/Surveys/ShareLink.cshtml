@@ -5,7 +5,7 @@
 
 <h2>Share Link</h2>
 <a id="sl1" href="@ViewBag.ShareLink">@ViewBag.ShareLink</a>
-<button class="btn btn-success btn-sm" onclick="copyToClipboard()">Copy To Clipboard</button>
+<button class="btn btn-danger btn-sm" onclick="copyToClipboard()">Copy To Clipboard</button>
 
 <h2>QR Code</h2>
 <img src="@Url.Action("GenerateQrCode",new {ShareLink= @ViewBag.ShareLink})" alt="qr code" />

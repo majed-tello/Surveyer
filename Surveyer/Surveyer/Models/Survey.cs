@@ -35,7 +35,7 @@ namespace Surveyer.Models
         [ScaffoldColumn(false)]
         public string Id { get; set; }
 
-        [Display(Name ="Title"),Required]
+        [Required,Display(Name ="Title")]
         public string Title { get; set; }
 
         [Display(Name ="Description"),DataType(DataType.MultilineText)]

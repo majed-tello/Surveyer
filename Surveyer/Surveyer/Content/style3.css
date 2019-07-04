@@ -1,113 +1,14 @@
-﻿body 
-{
- 
-      background-image:url(images/computer-desk-electronics-238118.jpg);
-    background-size:cover;
-   padding:20px 0px 0px 0px;
-   background-repeat:no-repeat;
-  
+﻿body {
+    padding-top:0px;
+    padding-bottom:0px; 
 }
-h2
-{
-    color:#284d72;
-    letter-spacing:2px;
-    font-weight:bold;
-    margin-bottom:70px;
-    margin-top:40px;
-}
-.form-control{
-    background:rgba(107, 126, 132,0.8);
-    border:1px solid #3e5359;
-    color:#333e49;
-    border:0px;
-   margin:10px;
-   display:inline;
-   width:50%
-  
-}
-.form-control:focus
-{
-    box-shadow:none;
-    box-shadow:1px 1px 10px #9b9393,-1px -1px 10px #9b9393;
 
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left:0px;
+    padding-right:0px;
 }
-input[type="submit"]
-{
-    background:#799fb5;
-    color:#FFF;
-    border:none;
-    transition:all 0.4s ease-in-out;
-    letter-spacing:3px;
-    font-size:19px;
-    margin-left:10px;
-    width:50%;
-}
-input[type="submit"]:hover
-{
- background:#799fb5;
- color:#FFF;
- box-shadow:3px 3px 10px #545f66;
- 
-}
-.form-horizontal .control-label
-{
-text-shadow:3px 3px 10px #bec9d3;
-color:#284d72;
-font-size:18px;
-font-weight:bold;
-}
-.back a:hover {
-    text-decoration: none;
-   
-}
-.fa-chevron-circle-left
-{ 
-    font-size:35px;
-    color:#848484;
-    border-radius:50%;
-    transition:all 0.2s ease-in-out;
-    
-}
-.fa-user-plus
-{
-  
-    font-size:35px; 
-    padding:10px;
-   
-     transition:all 0.4s ease-in-out;
-  
-}
-.fa-user-plus:hover
-{
- text-shadow:3px 3px 10px #545f66;
-}
- .fa-chevron-circle-left:hover
-{
-   box-shadow: 2px 2px 25px red;
-   margin-left:1px;
-    cursor:pointer;   
-}
-.register {
-    margin-left: 20%;
-}
-.text-register
-{
-    color:#515056;
-    font-size:15px;
-}
-.text-danger
-{
-    color:red;
-    font-size:15px
-}
-.social-media
-{
-    margin-top:30px;
-    margin-right:10px;
-}
-.social-media img
-{width:70px;
- overflow:hidden;
- float:right;
- padding:10px
-}
+ .carousel-caption  
+ {
+     padding-bottom:250px;
+ }

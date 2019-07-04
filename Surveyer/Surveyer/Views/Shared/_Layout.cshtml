@@ -6,64 +6,68 @@
     <title>@ViewBag.Title - Surveyer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-  
-
+  <link rel="stylesheet" href="~/Content/style2.css" />
+    <link href="~/Content/hover.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/cdbcbad884.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fas fa-align-justify fa-2x"></i>
                 </button>
-                @Html.ActionLink("Surveyer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+            
+                <a class="navbar-brand hvr-float-shadow" href="#" style="font-size:30px;color:#ed393e"><span style="color:#08526d;">Surv</span>eyer</a>
+                        </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+                <ul class="nav navbar-nav ">
+
                     @if (((Surveyer.Models.User)Session["user"]) != null)
                     {
-                        <li>@Html.ActionLink("My Surveys", "MySurveys", "Surveys")</li>
-                    }
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-
-
-                        @if (((Surveyer.Models.User)Session["user"]) != null)
-                        {
-                            <li style="padding-left:300px">
-                                @if (((Surveyer.Models.User)Session["user"]).ImageURL == null)
-                                {<img class="img-circle" src="@Url.Content("~/Imeges/defultuser.png")" alt="" height=50 width=50 /> }
-                                else
-                                {<img class="img-circle" src="@Url.Content($"~/Imeges/{((Surveyer.Models.User)Session["user"]).ImageURL}")" alt="" height=50 width=50 />}
-                            </li>
-                            <li>
-                                @Html.ActionLink(((Surveyer.Models.User)Session["user"]).UserName, "MyNotefication", "UsersManagement")
-                            </li>
-                            <li>
+                        <li>
+                            @if (((Surveyer.Models.User)Session["user"]).ImageURL == null)
+                            {<img class="img-circle" src="@Url.Content("~/Imeges/defultuser.png")" alt="" height=50 width=50 /> }
+                            else
+                            {<img class="img-circle" src="@Url.Content($"~/Imeges/{((Surveyer.Models.User)Session["user"]).ImageURL}")" alt="" height=50 width=50 />}
+                        </li>
+                        <li class="hvr-underline-from-left">
+                            @Html.ActionLink(((Surveyer.Models.User)Session["user"]).UserName, "MyNotefication", "UsersManagement")
+                        </li>
+                            <li class="hvr-underline-from-left">
                                 @Html.ActionLink("Logout", "Logout", "UsersManagement")
                             </li>
-                        }
-                        else
-                        {
-                            <li style="padding-left:400px">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
-                        }
-                    </ul>
-                </div>
+                    }
+                    else
+                    {
+                        <li class="hvr-underline-from-left">@Html.ActionLink("Login", "Login", "UsersManagement")</li>
+                    }
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hvr-underline-from-left">@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (((Surveyer.Models.User)Session["user"]) != null)
+                    {
+                        <li class="hvr-underline-from-left">@Html.ActionLink("My Surveys", "MySurveys", "Surveys")</li>
+                    }
+                    <li class="hvr-underline-from-left">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="hvr-underline-from-left">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class=" body-content" >
         @RenderBody()
     </div>
 
 
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   
+   @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 </body>
 </html>
